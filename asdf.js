@@ -9,7 +9,7 @@ function updatejuje() {
 }
 
 function updatemokrok() {
-    if (words) {
+    if (words != []) {
         showjujejunche.value = jujejunche();
         showjujegim.value = jujegim();
     } else {

@@ -29,7 +29,7 @@ function jujejunche() {
     var f = e.map(function (a) {
         return `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`
     }).join("\n\n"); // 셀 안에 든 단어 형태들을 문자열로 변환 후 앞 글자로 문단 만들고 합치기
-    return `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}}}\n== 개요 ==\n[[${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
+    return `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}}}\n== 개요 ==\n[[${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
 }
 
 function jujegim() {

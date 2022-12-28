@@ -13,8 +13,8 @@ function updatemokrok() {
         showjujejunche.value = jujejunche();
         showjujegim.value = jujegim();
     } else {
-        showjujejunche.empty()
-        showjujegim.empty()
+        showjujejunche.value = ""
+        showjujegim.value = ""
     }
 }
 

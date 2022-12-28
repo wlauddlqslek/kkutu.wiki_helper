@@ -98,5 +98,3 @@ window.onload = function () {
         document.execCommand('copy');
     };
 }
-
-// 긴 단어 목록 9글자 이상만 가져오기, 중복 단어 거르기

@@ -4,7 +4,7 @@ function updatewords() {
 
 function updatejuje() {
     var a = inputdocument.value.match(/(?<=:).+(?=\]\]\[)/)
-    var b =inputjuje.value
+    var b = inputjuje.value
     juje = !a ? b : b ? b : a;
 }
 
@@ -64,12 +64,12 @@ window.onload = function () {
         if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
             wordsdocument = inputdocument.value.match(/(?<=\|\s\[\[).+(?=\]\])/g).filter(function (a) {
                 return a !== '';
-            }) ?? []; // 대괄호 안 문자열을 배열로 만들기
+            }); // 대괄호 안 문자열을 배열로 만들기
         }
         if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
             wordsorigin = inputdocument.value.match(/(?<=\|\s\[\[).+(?=\]\])/g).filter(function (a) {
                 return a !== '';
-            }) ?? []; // 대괄호 안 문자열을 배열로 만들기
+            }); // 대괄호 안 문자열을 배열로 만들기
         }
         updatewords();
         updatejuje();

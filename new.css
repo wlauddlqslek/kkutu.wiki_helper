@@ -1,0 +1,40 @@
+.Middle {
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+}
+textarea {
+    height: 500px;
+    width: 250px;
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+    resize: none;
+}
+.inputwords {
+    float: left;
+}
+.showwords {
+    float: right;
+}
+input {
+    height: 44px;
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+}
+.inputjuje {
+    float: left;
+    width: 512px;
+}
+button {
+    height: 50px;
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+}
+.buttoncopy {
+    float: right;
+    width: 258px;
+}

@@ -1,5 +1,5 @@
 function updatewords() {
-    words = [...wordsorigin, ...wordsnew]
+    words = [...new Set([...wordsorigin, ...wordsnew])]
 }
 
 function updatejuje() {
@@ -14,7 +14,7 @@ function updatemokrok() {
 }
 
 function jujejunche() {
-    var a = [...new Set(words)].sort(); // words 가나다순 정렬
+    var a = words.sort(); // words 가나다순 정렬
     var b = {}; // 셀 안에 든 단어 형태로 저장용
     var e = []; // 앞 글자 저장용
     for (let i = 0; i < a.length; i++) {
@@ -34,7 +34,7 @@ function jujejunche() {
 }
 
 function jujegim() {
-    var a = [...new Set(words)].sort(); // words 가나다순 정렬
+    var a = words.sort(); // words 가나다순 정렬
     var b = a.filter(function (a) {
         return a.length >= 9
     }); // words 8글자 초과 단어들 가져오기

@@ -61,16 +61,16 @@ window.onload = function () {
     juje = '';
 
     inputdocument.onkeyup = function () {
-        if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
+        // if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
             wordsdocument = inputdocument.value.match(/(?<=\|\s\[\[).+(?=\]\])/g).filter(function (a) {
                 return a !== '';
             }); // 대괄호 안 문자열을 배열로 만들기
-        }
-        if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
+        // }
+        // if (inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g)) {
             wordsorigin = inputdocument.value.match(/(?<=\|\s\[\[).+(?=\]\])/g).filter(function (a) {
                 return a !== '';
             }); // 대괄호 안 문자열을 배열로 만들기
-        }
+        // }
         updatewords();
         updatejuje();
         updatemokrok();

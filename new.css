@@ -1,8 +1,14 @@
 .Middle {
+	width: 1200px;
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 1200px;
+}
+.Bottom {
+    width: 100%;
+}
+p {
+    font-weight: bold;
 }
 textarea {
     height: 500px;

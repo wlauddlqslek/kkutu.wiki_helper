@@ -9,8 +9,13 @@ function updatejuje() {
 }
 
 function updatemokrok() {
-    showjujejunche.value = jujejunche();
-    showjujegim.value = jujegim();
+    if (words) {
+        showjujejunche.value = jujejunche();
+        showjujegim.value = jujegim();
+    } else {
+        showjujejunche.empty()
+        showjujegim.empty()
+    }
 }
 
 function jujejunche() {

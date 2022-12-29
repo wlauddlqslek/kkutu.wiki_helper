@@ -71,6 +71,7 @@ window.onload = function () {
     wordsorigin = [];
     wordsnew = [];
     juje = '';
+    juje2 = '';
 
     inputdocument.onkeyup = function () {
         var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);

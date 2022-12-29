@@ -20,6 +20,7 @@ window.onload = function () {
         var b = inputjuje.value;
 
         juje = !a ? b : b ? b : a;
+        juje2 = juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje
     }
     // 목록 업데이트
     function updatemokrok() {
@@ -52,7 +53,7 @@ window.onload = function () {
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`) // 앞 글자로 문단 만들기
         .join("\n\n"); // 문자열로 변환
 
-        return `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}}}\n== 개요 ==\n[[${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
+        return `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje2}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
@@ -62,7 +63,7 @@ window.onload = function () {
         .map(a => `|-\n| ${a.length} || [[${a}]]`) // 셀 안에 든 단어 형태로 만들기
         .join("\n"); // 문자열로 변환
 
-        return `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}}}\n== 개요 ==\n[[${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${a}\n|}` // 문서 형태로 만들기
+        return `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje2}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${a}\n|}` // 문서 형태로 만들기
     }
 
     words = [];

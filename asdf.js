@@ -10,7 +10,7 @@ window.onload = function () {
 
     // words 중복 제거 & 가나다순 정렬
     function updatewords() {
-        words = [...new Set([...wordsorigin, ...wordsnew])]
+        words = [...new Set([...wordsorigin, ...wordsnew])] // 중복 제거
         .filter(a => a !== '') // 비었을 시 거르기
         .sort(); // 가나다순 정렬
     }
@@ -39,7 +39,7 @@ window.onload = function () {
         for (let i = 0; i < words.length; i++) {
             var c = words[i]; // 단어
             var d = c.charAt(); // 앞 글자
-            
+
             if (b[d]) {
                 b[d].push(`|-\n| ${c.length} || [[${c}]]`); // 셀 안에 든 단어 형태로 넣기
             } else {

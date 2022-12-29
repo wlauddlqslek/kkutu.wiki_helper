@@ -33,12 +33,13 @@ window.onload = function () {
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
-        var b = {}; // 셀 안에 든 단어 형태로 저장용
-        var e = []; // 앞 글자 저장용
+        var b = {}; // 셀 안에 든 단어 형태
+        var e = []; // 앞 글자
 
         for (let i = 0; i < words.length; i++) {
             var c = words[i]; // 단어
             var d = c.charAt(); // 앞 글자
+            
             if (b[d]) {
                 b[d].push(`|-\n| ${c.length} || [[${c}]]`); // 셀 안에 든 단어 형태로 넣기
             } else {
@@ -46,9 +47,11 @@ window.onload = function () {
                 e.push(d); // 앞 글자 저장
             };
         };
-        var f = e.map(function (a) {
-            return `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`
-        }).join("\n\n"); // 셀 안에 든 단어 형태들을 문자열로 변환 후 앞 글자로 문단 만들고 합치기
+
+        var f = e
+        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`) // 앞 글자로 문단 만들기
+        .join("\n\n"); // 문자열로 변환
+
         return `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}}}\n== 개요 ==\n[[${juje == '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : juje}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
     }
     // 주제 긴 단어 목록 만들기

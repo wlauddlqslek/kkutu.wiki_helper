@@ -2,9 +2,12 @@ window.onload = function () {
 
     // words 중복 제거 & 가나다순 정렬
     function updatewords() {
-        words = [...new Set([...wordsorigin, ...wordsnew])] // 중복 제거
-        .filter(a => a !== '') // 비었을 시 거르기
-        .sort(); // 가나다순 정렬
+        // 중복 제거
+        words = [...new Set([...wordsorigin, ...wordsnew])]
+        // 비었을 시 거르기
+        .filter(a => a !== '')
+        // 가나다순 정렬
+        .sort();
     }
     // juje 가져오기
     function updatejuje() {
@@ -22,55 +25,68 @@ window.onload = function () {
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
-        if (words.length) {
-            showjujejunche.value = ""; // 단어 없을시 비우기
+        // 단어 없을시 비우기
+        if (!words.length) {
+            showjujejunche.value = "";
             return;
         };
 
-        var b = {}; // 셀 안에 든 단어 형태
-        var e = []; // 앞 글자
+        // 셀 안에 든 단어 형태
+        var b = {};
 
         for (let i = 0; i < words.length; i++) {
-            var c = words[i]; // 단어
-            var d = c.charAt(); // 앞 글자
+            // 단어
+            var c = words[i];
+            // 단어의 앞 글자
+            var d = c.charAt();
 
             if (b[d]) {
-                b[d].push(`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`); // 셀 안에 든 단어 형태로 넣기
+                // 셀 안에 든 단어 형태로 넣기
+                b[d].push(`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`);
             } else {
-                b[d] = [`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`]; // 생성 & 셀 안에 든 단어 형태로 만들기
-                e.push(d); // 앞 글자 저장
+                // 생성 & 셀 안에 든 단어 형태로 만들기
+                b[d] = [`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`];
             };
         };
 
-        var f = e
-        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`) // 앞 글자로 문단 만들기
-        .join("\n\n"); // 문자열로 변환
+        var f = Object.keys(b)
+        // 문단 만들기
+        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`)
+        // 문자열로 변환
+        .join("\n\n");
 
-        showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`; // 문서 형태로 만들기
+        // 문서 형태로 만들기
+        showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
-        var a = words.filter(a => a.length >= 9); // 9글자 이상 단어 가져오기
-        if (a.length) {
-            showjujegim.value = ""; // 9글자 이상 단어 없을 시 비우기
+        // 9글자 이상 단어 가져오기
+        var a = words.filter(a => a.length >= 9);
+        // 9글자 이상 단어 없을 시 비우기
+        if (!a.length) {
+            showjujegim.value = "";
             return;
         };
 
         var b = a
-        .sort((a, b) => b.length - a.length) // 긴 순 정렬
-        .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`) // 셀 안에 든 단어 형태로 만들기
-        .join("\n"); // 문자열로 변환
+        // 긴 순 정렬
+        .sort((a, b) => b.length - a.length)
+        // 셀 안에 든 단어 형태로 만들기
+        .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`)
+        // 문자열로 변환
+        .join("\n");
 
-        showjujejunche.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}` // 문서 형태로 만들기
+        // 문서 형태로 만들기
+        showjujejunche.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
     }
 
-    const inputdocument = document.getElementById("inputdocument"); // 문서 원본 입력
-    const inputwords = document.getElementById("inputwords"); // 단어 입력
-    const inputjuje = document.getElementById("inputjuje"); // 주제 입력
-    const showjujejunche = document.getElementById("showjujejunche"); // 주제 전체 단어 목록 보여주기
-    const showjujegim = document.getElementById("showjujegim"); // 주제 긴 단어 목록 보여주기
-    const copyjujejunche = document.getElementById("copyjujejunche"); // 주제 전체 단어 목록 복사 버튼
-    const copyjujegim = document.getElementById("copyjujegim"); // 주제 긴 단어 목록 복사 버튼
+    const inputdocument = document.getElementById("inputdocument");
+    const inputwords = document.getElementById("inputwords");
+    const inputjuje = document.getElementById("inputjuje");
+    const showjujejunche = document.getElementById("showjujejunche");
+    const showjujegim = document.getElementById("showjujegim");
+    const copyjujejunche = document.getElementById("copyjujejunche");
+    const copyjujegim = document.getElementById("copyjujegim");
 
     const JUJE = [
         '대문',
@@ -183,19 +199,22 @@ window.onload = function () {
     let juje3 = '';
 
     inputdocument.onkeyup = function () {
-        var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g); // 대괄호 안 문자열을 배열로 만들기
-        var b = a
-        ? a.map(a => a.includes('(단어)') ? a.substr(0, a.indexOf('(단어)')) : a) // 단어 문서 변형
-        : [];
+        // 대괄호 안 문자열을 배열로 만들기
+        var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);
 
-        wordsorigin = b;
+        wordsorigin = a
+        // 단어 문서 변형
+        ? a.map(a => a.includes('(단어)') ? a.substr(0, a.indexOf('(단어)')) : a)
+        // 단어가 없을 시 비우기
+        : [];
 
         updatewords();
         updatejuje();
         updatemokrok();
     };
     inputwords.onkeyup = function () {
-        wordsnew = inputwords.value.split("\n") // 문자열을 배열로 만들기
+        // 문자열을 배열로 만들기
+        wordsnew = inputwords.value.split("\n");
 
         updatewords();
         updatemokrok();

@@ -77,11 +77,13 @@ window.onload = function () {
 
     inputdocument.onkeyup = function () {
         var a = inputdocument.value
+        ? inputdocument.value
         .match(/(?<=\| \[\[).+(?=\]\])/g) // 대괄호 안 문자열을 배열로 만들기
-        .map(a => a.include('(단어)')) ? a.substr(0, a.indexOf('(단어)')) : a; // 단어 문서 변형
+        .map(a => a.include('(단어)')) ? a.substr(0, a.indexOf('(단어)')) : a // 단어 문서 변형
+        : [];
 
-        wordsdocument = a ? a : [];
-        wordsorigin = wordsdocument;
+        wordsdocument = a;
+        wordsorigin = a;
 
         updatewords();
         updatejuje();

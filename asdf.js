@@ -164,7 +164,7 @@ window.onload = function () {
         var a = words
         .filter(a => a.length >= 9) // 9글자 이상 단어 가져오기
         .sort((a, b) => b.length - a.length) // 긴 순 정렬
-        .map(a => `|-\n| ${a.length} || [[${a}]]`) // 셀 안에 든 단어 형태로 만들기
+        .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`) // 셀 안에 든 단어 형태로 만들기
         .join("\n"); // 문자열로 변환
 
         return `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${a}\n|}` // 문서 형태로 만들기

@@ -5,6 +5,7 @@ window.onload = function () {
         words = [...new Set([...wordsorigin, ...wordsnew])] // 중복 제거
         .filter(a => a !== '') // 비었을 시 거르기
         .sort(); // 가나다순 정렬
+        wordslong = words.filter(a => a.length >= 9); // 9글자 이상 단어 가져오기
     }
     // juje 가져오기
     function updatejuje() {
@@ -17,13 +18,8 @@ window.onload = function () {
     }
     // 목록 업데이트
     function updatemokrok() {
-        if (words.length) {
-            showjujejunche.value = jujejunche();
-            showjujegim.value = jujegim();
-        } else {
-            showjujejunche.value = ""
-            showjujegim.value = ""
-        }
+        showjujejunche.value = words.length ? jujejunche() : "";
+        showjujegim.value = wordslong.length ? jujegim() : "";
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
@@ -50,8 +46,7 @@ window.onload = function () {
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
-        var a = words
-        .filter(a => a.length >= 9) // 9글자 이상 단어 가져오기
+        var a = wordslong
         .sort((a, b) => b.length - a.length) // 긴 순 정렬
         .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`) // 셀 안에 든 단어 형태로 만들기
         .join("\n"); // 문자열로 변환
@@ -173,6 +168,7 @@ window.onload = function () {
     let words = [];
     let wordsorigin = [];
     let wordsnew = [];
+    let wordslong = [];
     let juje = '';
     let juje2 = '';
     let juje3 = '';

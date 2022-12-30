@@ -17,8 +17,13 @@ window.onload = function () {
     }
     // 목록 업데이트
     function updatemokrok() {
+        origin();
         jujejunche();
         jujegim();
+    }
+    // 단어 원본 목록 만들기
+    function origin() {
+        showorigin.value = words.join("\n");
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
@@ -66,8 +71,10 @@ window.onload = function () {
     const inputdocument = document.getElementById("inputdocument");
     const inputwords = document.getElementById("inputwords");
     const inputjuje = document.getElementById("inputjuje");
+    const showorigin = document.getElementById("showorigin");
     const showjujejunche = document.getElementById("showjujejunche");
     const showjujegim = document.getElementById("showjujegim");
+    const copyorigin = document.getElementById("copyorigin");
     const copyjujejunche = document.getElementById("copyjujejunche");
     const copyjujegim = document.getElementById("copyjujegim");
 
@@ -201,6 +208,10 @@ window.onload = function () {
     inputjuje.onkeyup = function () {
         updatejuje();
         updatemokrok();
+    };
+    copyorigin.onclick = function () {
+        showorigin.select();
+        document.execCommand('copy');
     };
     copyjujejunche.onclick = function () {
         showjujejunche.select();

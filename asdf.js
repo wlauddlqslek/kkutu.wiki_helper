@@ -49,7 +49,7 @@ window.onload = function () {
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`)
         .join("\n\n");
 
-        showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
+        showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
@@ -65,7 +65,7 @@ window.onload = function () {
         .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`)
         .join("\n");
 
-        showjujegim.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
+        showjujegim.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
     }
 
     const inputdocument = document.getElementById("inputdocument");

@@ -2,11 +2,8 @@ window.onload = function () {
 
     // words 중복 제거 & 가나다순 정렬
     function updatewords() {
-        // 중복 제거
         words = [...new Set([...wordsorigin, ...wordsnew])]
-        // 비었을 시 거르기
         .filter(a => a !== '')
-        // 가나다순 정렬
         .sort();
     }
     // juje 가져오기
@@ -25,58 +22,44 @@ window.onload = function () {
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
-        // 단어 없을시 비우기
         if (!words.length) {
             showjujejunche.value = "";
             return;
         };
 
-        // 셀 안에 든 단어 형태
         var b = {};
 
         for (let i = 0; i < words.length; i++) {
-            // 단어
             var c = words[i];
-            // 단어의 앞 글자
             var d = c.charAt();
 
             if (b[d]) {
-                // 셀 안에 든 단어 형태로 넣기
                 b[d].push(`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`);
             } else {
-                // 생성 & 셀 안에 든 단어 형태로 만들기
                 b[d] = [`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`];
             };
         };
 
         var f = Object.keys(b)
-        // 문단 만들기
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`)
-        // 문자열로 변환
         .join("\n\n");
 
-        // 문서 형태로 만들기
         showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
-        // 9글자 이상 단어 가져오기
         var a = words.filter(a => a.length >= 9);
-        // 9글자 이상 단어 없을 시 비우기
+
         if (!a.length) {
             showjujegim.value = "";
             return;
         };
 
         var b = a
-        // 긴 순 정렬
         .sort((a, b) => b.length - a.length)
-        // 셀 안에 든 단어 형태로 만들기
         .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`)
-        // 문자열로 변환
         .join("\n");
 
-        // 문서 형태로 만들기
         showjujegim.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
     }
 
@@ -199,13 +182,10 @@ window.onload = function () {
     let juje3 = '';
 
     inputdocument.onkeyup = function () {
-        // 대괄호 안 문자열을 배열로 만들기
         var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);
 
         wordsorigin = a
-        // 단어 문서 변형
         ? a.map(a => a.includes('(단어)') ? a.substr(0, a.indexOf('(단어)')) : a)
-        // 단어가 없을 시 비우기
         : [];
 
         updatewords();
@@ -213,7 +193,6 @@ window.onload = function () {
         updatemokrok();
     };
     inputwords.onkeyup = function () {
-        // 문자열을 배열로 만들기
         wordsnew = inputwords.value.split("\n");
 
         updatewords();

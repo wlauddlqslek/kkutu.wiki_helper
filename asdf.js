@@ -22,7 +22,7 @@ window.onload = function () {
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
-        if (!words.length) {
+        if (!words.length || !juje) {
             showjujejunche.value = "";
             return;
         };
@@ -50,7 +50,7 @@ window.onload = function () {
     function jujegim() {
         var a = words.filter(a => a.length >= 9);
 
-        if (!a.length) {
+        if (!a.length || !juje) {
             showjujegim.value = "";
             return;
         };

@@ -76,9 +76,11 @@ window.onload = function () {
     juje3 = '';
 
     inputdocument.onkeyup = function () {
-        var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);
+        var a = inputdocument.value
+        .match(/(?<=\| \[\[).+(?=\]\])/g) // 대괄호 안 문자열을 배열로 만들기
+        .map(a => a.include('(단어)')) ? a.substr(0, a.indexOf('(단어)')) : a; // 단어 문서 변형
 
-        wordsdocument = a ? a : []; // 대괄호 안 문자열이 있을 시 대괄호 안 문자열을 배열로 만들기
+        wordsdocument = a ? a : [];
         wordsorigin = wordsdocument;
 
         updatewords();

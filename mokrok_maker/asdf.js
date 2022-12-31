@@ -3,7 +3,7 @@ window.onload = function () {
     // words 중복 제거 & 가나다순 정렬
     function updatewords() {
         words = [...new Set([...wordsorigin, ...wordsnew])]
-        .filter(a => a !== '')
+        .filter(a => a !== '' && wordsdelete.includes(a))
         .sort();
     }
     // juje 가져오기
@@ -69,7 +69,8 @@ window.onload = function () {
     }
 
     const inputdocument = document.getElementById("inputdocument");
-    const inputwords = document.getElementById("inputwords");
+    const inputaddwords = document.getElementById("inputaddwords");
+    const inputdeletewords = document.getElementById("inputdeletewords");
     const inputjuje = document.getElementById("inputjuje");
     const showorigin = document.getElementById("showorigin");
     const showjujejunche = document.getElementById("showjujejunche");
@@ -204,8 +205,14 @@ window.onload = function () {
         updatejuje();
         updatemokrok();
     };
-    inputwords.onkeyup = function () {
-        wordsnew = inputwords.value.split("\n");
+    inputaddwords.onkeyup = function () {
+        wordsnew = inputaddwords.value.split("\n");
+
+        updatewords();
+        updatemokrok();
+    };
+    inputdeletewords.onkeyup = function () {
+        wordsdelete = inputdeletewords.value.split("\n");
 
         updatewords();
         updatemokrok();

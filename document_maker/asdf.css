@@ -1,0 +1,63 @@
+.Middle {
+	width: 1500px;
+    height: 1500px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.Bottom {
+    width: 100%;
+}
+table {
+    width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+td, th {
+    text-align: center;
+    font-weight: bold;
+}
+h1 {
+    text-align: center;
+    font-weight: bold;
+}
+label {
+    margin: 2px;
+    font-size: 20px;
+}
+input {
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+}
+input[type=text] {
+    width: 100%;
+    height: 25px;
+}
+input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+}
+select {
+    width: 100%;
+    height: 25px;
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+}
+textarea {
+    width: 100%;
+    height: 200px;
+    border-width: 2px;
+    font-weight: bold;
+    resize: none;
+}
+textarea[readonly=readonly]{
+    height: 400px;
+}
+button {
+    height: 50px;
+    margin: 2px;
+    border-width: 2px;
+    font-weight: bold;
+}

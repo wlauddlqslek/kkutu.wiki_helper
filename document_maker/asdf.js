@@ -1,25 +1,16 @@
 window.onload = function () {
     function update() {
         copy.value =  title && summary
-? `[[분류:]][[분류:${ro(titlefirst)} 시작하는 단어]][[분류:${ro(titlelast)} 끝나는 단어]]${ota && `
-{{다른 뜻|설명=정확한 표기|문서=${ota}}}`}${subtitlein && `
-{{다른 뜻|설명=부제가 포함된 단어|문서=${subtitlein}}}`}${subtitleout && `
-{{다른 뜻|설명=부제가 빠진 단어|문서=${subtitleout}}}`}
-{{단어${titleorigin && `
-|제목=${titleorigin}`}${titleforeign && `
-|원제=${titleforeign}`}${image && `
-|이미지=${image}`}${imagedescript && `
-|이미지 설명=${imagedescript}`}
-|주제=
-|길이=${titlelength}
+? `[[분류:]]${d.ctitlefirst}${d.ctitlelast}${d.tota}${d.tsubstitlein}${d.tsubstitleout}
+{{단어${d.wtitleorigin}${d.wtitleforeign}${d.wimage}${d.wimagedescript}
+|주제=${d.wtitlelength}
 |가미션=1
 }}
 {{목차}}
-${summary}
+${d.summary}
 
 {{특징
-|시작=${titlefirst}|끝=${titlelast}|길이=${titlelength}${titlehunmin && `
-|훈민정음=${titlehunmin}`}
+${d.ftitle}${d.fhunmin}
 }}
 == 둘러보기 ==
 {{}}`
@@ -71,6 +62,22 @@ ${summary}
     const inputsummary = document.getElementById("summary") ;
     const copy = document.getElementById("copy");
 
+    let d = {
+        ctitlefirst: '',
+        ctitlelast: '',
+        tota: '',
+        tsubstitlein: '',
+        tsubstitleout: '',
+        wtitleorigin: '',
+        wtitleforeign: '',
+        wimage: '',
+        wimagedescript: '',
+        wtitlelength: '',
+        summary: '',
+        ftitle: '',
+        fhunmin: '',
+    }
+
     let title = '';
     let titlefirst = '';
     let titlelength = '';
@@ -85,51 +92,73 @@ ${summary}
     let summary = '';
 
     inputtitle.onkeyup = function () {
-        title = inputtitle.value
-        titlelength = title.length
-        titlefirst = title.charAt()
+        title = inputtitle.value;
+        titlelength = title.length;
+        titlefirst = title.charAt();
         titlelast = title.charAt(titlelength - 1);
-        titlehunmin = hunmin()
+        titlehunmin = hunmin();
+        
+        d.ctitlefirst = `[[분류:${ro(titlefirst)} 시작하는 단어]]`;
+        d.ctitlelast = `[[분류:${ro(titlelast)} 끝나는 단어]]`;
+        d.wtitlelength = `|길이=${titlelength}`;
+        d.ftitle = `|시작=${titlefirst}|끝=${titlelast}|길이=${titlelength}`;
+        d.fhunmin = titlehunmin && `\n|훈민정음=${titlehunmin}`;
 
         update();
     };
     inputtitleorigin.onkeyup = function () {
-        titleorigin = inputtitleorigin.value
+        titleorigin = inputtitleorigin.value;
+
+        d.wtitleorigin = titleorigin && `\n|제목=${titleorigin}`;
 
         update();
     };
     inputtitleforeign.onkeyup = function () {
-        titleforeign = inputtitleforeign.value
+        titleforeign = inputtitleforeign.value;
+
+        d.wtitleforeign = titleforeign && `\n|원제=${titleforeign}`;
 
         update();
     };
     inputsubtitlein.onkeyup = function () {
-        subtitlein = inputsubtitlein.value
+        subtitlein = inputsubtitlein.value;
+
+        d.subtitlein = subtitlein && `\n{{다른 뜻|설명=부제가 포함된 단어|문서=${subtitlein}}}`;
 
         update();
     };
     inputsubtitleout.onkeyup = function () {
-        subtitleout = inputsubtitleout.value
+        subtitleout = inputsubtitleout.value;
+        
+        d.substitleout = subtitleout && `\n{{다른 뜻|설명=부제가 빠진 단어|문서=${subtitleout}}}`;
 
         update();
     };
     inputota.onkeyup = function () {
-        ota = inputota.value
+        ota = inputota.value;
+
+        d.tota = ota && `\n{{다른 뜻|설명=정확한 표기|문서=${ota}}}`;
 
         update();
     };
     inputimage.onkeyup = function () {
-        image = inputimage.value
+        image = inputimage.value;
+
+        d.wimage = image && `\n|이미지=${image}`;
 
         update();
     };
     inputimagedescript.onkeyup = function () {
-        imagedescript = inputimagedescript.value
+        imagedescript = inputimagedescript.value;
+
+        d.wimagedescript = imagedescript && `\n|이미지 설명=${imagedescript}`;
 
         update();
     };
     inputsummary.onkeyup = function () {
-        summary = inputsummary.value
+        summary = inputsummary.value;
+
+        d.summary = summary;
 
         update();
     };

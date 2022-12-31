@@ -9,8 +9,7 @@ window.onload = function () {
 {{목차}}
 ${d.summary}
 
-{{특징
-${d.ftitle}${d.fhunmin}
+{{특징${d.ftitle}${d.fhunmin}
 }}
 == 둘러보기 ==
 {{}}`
@@ -100,8 +99,8 @@ ${d.ftitle}${d.fhunmin}
         
         d.ctitlefirst = `[[분류:${ro(titlefirst)} 시작하는 단어]]`;
         d.ctitlelast = `[[분류:${ro(titlelast)} 끝나는 단어]]`;
-        d.wtitlelength = `|길이=${titlelength}`;
-        d.ftitle = `|시작=${titlefirst}|끝=${titlelast}|길이=${titlelength}`;
+        d.wtitlelength = `\n|길이=${titlelength}`;
+        d.ftitle = `\n|시작=${titlefirst}|끝=${titlelast}|길이=${titlelength}`;
         d.fhunmin = titlehunmin && `\n|훈민정음=${titlehunmin}`;
 
         update();

@@ -3,7 +3,7 @@ window.onload = function () {
     // words 중복 제거 & 가나다순 정렬
     function updatewords() {
         words = [...new Set([...wordsorigin, ...wordsnew])]
-        .filter(a => a !== '' && wordsdelete.includes(a))
+        .filter(a => a !== '' && !wordsdelete.includes(a))
         .sort();
     }
     // juje 가져오기

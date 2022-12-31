@@ -13,7 +13,7 @@ p {
 }
 textarea {
     height: 500px;
-    width: 250px;
+    width: 200px;
     margin: 2px;
     border-width: 2px;
     font-weight: bold;
@@ -33,7 +33,7 @@ input {
 }
 .inputjuje {
     float: left;
-    width: 512px;
+    width: 624px;
 }
 button {
     height: 50px;
@@ -43,5 +43,5 @@ button {
 }
 .buttoncopy {
     float: right;
-    width: 258px;
+    width: 208px;
 }

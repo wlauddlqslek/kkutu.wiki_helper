@@ -190,6 +190,7 @@ window.onload = function () {
     let words = [];
     let wordsorigin = [];
     let wordsnew = [];
+    let wordsdelete = [];
     let juje = '';
     let juje2 = '';
     let juje3 = '';

@@ -6,7 +6,7 @@ window.onload = function () {
             console.log('단어와 주제와 내용은 필수입니다.');
             return;
         };
-        if (!arrmt(p.category) && p.category.length < p.theme.length) {
+        if (!arrmt(p.category) && (p.category.length < p.theme.length)) {
             $s.copy.value = '';
             console.log('분류는 주제의 개수 이상이어야 합니다. 분류가 주제라면 분류에 주제를 쓰십시오.');
             return;

@@ -1,8 +1,19 @@
 window.onload = function () {
     // 원본 업데이트
     function update() {
-        $s.copy.value =  p.title && p.theme && p.summary
-? `[[분류:]]${Object.values(d.c).join('')}${Object.values(d.t).join('')}
+        if (!p.title || arrmt(p.theme) || !p.summary) {
+            $s.copy.value = '';
+            console.log('단어와 주제와 내용은 필수입니다.');
+            return;
+        };
+        if ((!arrmt(p.category)) && p.category.length < p.theme.length) {
+            $s.copy.value = '';
+            console.log('분류는 주제의 개수 이상이어야 합니다. 분류가 주제라면 분류에 주제를 쓰십시오.');
+            return;
+        };
+
+        $s.copy.value =
+`${Object.values(d.c).join('')}${Object.values(d.t).join('')}
 {{단어${Object.values(d.w).join('')}
 |가미션=1
 }}
@@ -13,7 +24,10 @@ ${d.summary}
 }}
 == 둘러보기 ==
 {{}}${d.ref}`
-: '';
+    }
+    // 배열 값이 비었는지 확인
+    function arrmt(a) {
+        return !a.length || (a.length == 1 && a[0] == '')
     }
     // 로 / 으로
     function ro(a) {
@@ -42,6 +56,12 @@ ${d.summary}
         }
 
         return result;
+    }
+    // 분류 업데이트
+    function updatecategory() {
+        d.c.category = arrmt(p.category)
+        ? p.theme.map(a => `[[분류:${a}]]`).join('')
+        : p.category.map(a => `[[분류:${a}]]`).join('')
     }
     // 공격 단어
     function attack(code, name) {
@@ -126,14 +146,14 @@ ${d.summary}
     }
     // 주제 최장문 업데이트
     function updatelongestTM() {
-        if (p.longestTM) {
+        if (!arrmt(p.longestTM)) {
             d.c.longestTM = `[[분류:주제 최장문]]`;
-            d.t.longestTM = `\n{{주제 최장문|문서=${p.longestTM}}}`; // p.longestTM <- 배열이 될 예정
-            d.f.longestTM = `\n|주제문서=${p.longestTM}`; // 사이에 ]], [[ 집어넣기
+            d.t.longestTM = p.longestTM.map(a => `\n{{주제 최장문|문서=${a}}}`).join('');
+            d.f.longestTM = `\n|주제문서=${p.longestTM[0]}` // `\n|주제문서=${p.longestTM.map(a => `${a}`).join(']], [[')}`;
         } else { 
             d.c.longestTM = '';
             d.t.longestTM = '';
-            d.f.longestTM = '';
+            d.f.longestTM = ''; // 그런 경우는 없겠지만 틀:특징에 주제 최장문 2개 다는 법을 모색
         }
     }
     // 끝말잇기 유일한 단어 업데이트
@@ -280,8 +300,8 @@ ${d.summary}
         subtitlein: '',
         subtitleout: '',
         ota: '',
-        category: '',
-        theme: '',
+        category: [],
+        theme: [],
         template: '',
         image: '',
         imagedescript: '',
@@ -306,7 +326,7 @@ ${d.summary}
         hanbangMT: false,
         longestSH: false,
         longestAP: false,
-        longestTM: false,
+        longestTM: [],
         onlySH: false,
         onlyAP: false,
         summary: '== 개요 ==',
@@ -369,12 +389,20 @@ ${d.summary}
         update();
     };
     $s.inputcategory.onkeyup = function () {
-        p.category = $s.inputcategory.value; // 배열로 만들기
+        p.category = [...new Set($s.inputcategory.value.split(', '))];
+
+        updatecategory();
         
         update();
     };
     $s.inputtheme.onkeyup = function () {
-        p.theme = $s.inputtheme.value; // 배열로 만들기
+        p.theme = [...new Set($s.inputtheme.value.split(', '))];
+
+        updatecategory();
+        d.w.theme = p.theme.map(a => {
+            let b = p.theme.indexOf(a)
+            return `\n|주제${ b ? b + 1 : ''}=${a}`
+        }).join('');
 
         update();
     };
@@ -527,7 +555,7 @@ ${d.summary}
         update();
     }
     $s.inputlongestTM.onkeyup = function () {
-        p.longestTM = $s.inputlongestTM.value; // 나중에 배열로 바꿔
+        p.longestTM = [...new Set($s.inputlongestTM.value.split(', '))];
         
         updatelongestTM();
         

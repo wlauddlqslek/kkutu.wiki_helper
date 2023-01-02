@@ -5,17 +5,18 @@ window.onload = function () {
         d.cattackSH + d.cattackKT + d.cattackAP + d.cattackGT + d.cattackMT +
         d.cdefenseSH + d.cdefenseKT + d.cdefenseAP + d.cdefenseGT + d.cdefenseMT +
         d.chanbangSH + d.chanbangKT + d.chanbangAP + d.chanbangGT + d.chanbangMT +
-        d.clongestSH + d.clongestAP + d.clongestTM
+        d.clongestSH + d.clongestAP + d.clongestTM +
+        d.conlySH + d.conlyAP +
         d.cdollim
         let t = d.tota + d.tsubtitlein + d.tsubtitleout +
-        d.tlongestTM + d.tlongestSH + d.tlongestAP
+        d.tlongestTM + d.tlongestSH + d.tlongestAP +
+        d.tonlySH + d.tonlyAP
         let w = d.wtitleorigin + d.wtitleforeign + d.wimage + d.wimagedescript + d.wtheme + d.wtitlelength
         let f = d.ftitle +
         d.fhunmin +
-        d.fattack + d.fdefense + d.fhanbang+ 
-        d.flongestTM + d.fprelongestTM +
-        d.flongestSH + d.flongestAP +
-        d.fprelongestSH + d.fprelongestAP +
+        d.fattack + d.fdefense + d.fhanbang + 
+        d.flongestTM +  d.flongestSH + d.flongestAP +
+        d.fonlySH + d.fonlyAP +
         d.fdollim
 
         copy.value =  p.title && p.summary
@@ -145,25 +146,37 @@ ${d.summary}
     function updatelongestTM() {
         if (p.longestTM) {
             d.clongestTM = `[[분류:주제 최장문]]`;
-            d.tlongestTM = `\n{{주제 최장문|문서=${p.theme}}}`;
-            d.flongestTM = `\n|주제문서=${p.theme}`;
+            d.tlongestTM = `\n{{주제 최장문|문서=${p.longestTM}}}`; // p.longestTM <- 배열이 될 예정
+            d.flongestTM = `\n|주제문서=${p.longestTM}`; // 사이에 ]], [[ 집어넣기
         } else { 
             d.clongestTM = '';
             d.tlongestTM = '';
             d.flongestTM = '';
         }
     }
-    // 과거 끝말잇기 최장문 업데이트
-    function updateprelongestSH() {
-            d.fprelongestSH = p.prelongestSH ? `\n|과거첫 글자=${p.titlefirst}` : '';
+    // 끝말잇기 유일한 단어 업데이트
+    function updateonlySH() {
+        if (p.onlySH) {
+            d.conlySH = `[[분류:유일한 단어/한국어 끝말잇기]]`;
+            d.tonlySH = `\n{{유일한 단어|첫 글자=${p.titlefirst}}}`;
+            d.fonlySH = `\n|유일첫 글자=${p.titlefirst}`;
+        } else {
+            d.conlySH = '';
+            d.tonlySH = '';
+            d.fonlySH = '';
+        };
     }
-    // 과거 앞말잇기 최장문 업데이트
-    function updateprelongestAP() {
-            d.fprelongestAP = p.prelongestAP ? `\n|과거끝 글자=${p.titlelast}` : '';
-    }
-    // 과거 주제 최장문 업데이트
-    function updateprelongestTM() {
-            d.fprelongestTM = p.prelongestTM ? `\n|과거주제문서=${p.theme}` : '';
+    // 앞말잇기 유일한 단어 업데이트
+    function updateonlyAP() {
+        if (p.onlyAP) {
+            d.conlyAP = `[[분류:유일한 단어/한국어 앞말잇기]]`;
+            d.tonlyAP = `\n{{유일한 단어|끝 글자=${p.titlelast}}}`;
+            d.fonlyAP = `\n|유일끝 글자=${p.titlelast}`;
+        } else {
+            d.conlyAP = '';
+            d.tonlyAP = '';
+            d.fonlyAP = '';
+        };
     }
 
     const inputtitle = document.getElementById("title");
@@ -194,10 +207,9 @@ ${d.summary}
     const cbhanbangAP = document.getElementById("hanbangAP");
     const cblongestSH = document.getElementById('longestSH');
     const cblongestAP = document.getElementById('longestAP');
-    const cblongestTM = document.getElementById('longestTM');
-    const cbprelongestSH = document.getElementById('prelongestSH');
-    const cbprelongestAP = document.getElementById('prelongestAP');
-    const cbprelongestTM = document.getElementById('prelongestTM');
+    const inputlongestTM = document.getElementById('longestTM');
+    const cbonlySH = document.getElementById('onlySH');
+    const cbonlyAP = document.getElementById('onlyAP');
     const selectdelete = document.getElementById("delete");
     const selectmodify = document.getElementById("modify");
     const inputsummary = document.getElementById("summary");
@@ -225,6 +237,8 @@ ${d.summary}
         clongestSH: '',
         clongestAP: '',
         clongestTM: '',
+        conlySH: '',
+        conlyAP: '',
         cdollim: '',
         tota: '',
         tsubtitlein: '',
@@ -232,6 +246,8 @@ ${d.summary}
         tlongestSH: '',
         tlongestAP: '',
         tlongestTM: '',
+        tonlySH: '',
+        tonlyAP: '',
         wtitleorigin: '',
         wtitleforeign: '',
         wimage: '',
@@ -247,9 +263,8 @@ ${d.summary}
         flongestSH: '',
         flongestAP: '',
         flongestTM: '',
-        fprelongestSH: '',
-        fprelongestAP: '',
-        fprelongestTM: '',
+        fonlySH: '',
+        fonlyAP: '',
         fdollim: '',
         ref: '',
     }
@@ -289,9 +304,8 @@ ${d.summary}
         longestSH: false,
         longestAP: false,
         longestTM: false,
-        prelongestSH: false,
-        prelongestAP: false,
-        prelongestTM: false,
+        onlySH: false,
+        onlyAP: false,
         summary: '',
     };
 
@@ -311,7 +325,8 @@ ${d.summary}
         d.fdollim = p.titlefirst == p.titlelast ? '\n|돌림단어=O' : '';
         updatelongestSH();
         updatelongestAP();
-        updatelongestTM();
+        updateonlySH();
+        updateonlyAP();
 
         update();
     };
@@ -483,31 +498,24 @@ ${d.summary}
         
         update();
     }
-    cblongestTM.onclick = function () {
-        p.longestTM = cblongestTM.checked;
+    inputlongestTM.onkeyup = function () {
+        p.longestTM = inputlongestTM.value; // 나중에 배열로 바꿔
         
         updatelongestTM();
         
         update();
     }
-    cbprelongestSH.onclick = function () {
-        p.prelongestSH = cbprelongestSH.checked;
+    cbonlySH.onclick = function () {
+        p.onlySH = cbonlySH.checked;
         
-        updateprelongestSH();
-        
-        update();
-    }
-    cbprelongestAP.onclick = function () {
-        p.prelongestAP = cbprelongestAP.checked;
-        
-        updateprelongestAP();
+        updateonlySH();
         
         update();
     }
-    cbprelongestTM.onclick = function () {
-        p.prelongestTM = cbprelongestTM.checked;
+    cbonlyAP.onclick = function () {
+        p.onlyAP = cbonlyAP.checked;
         
-        updateprelongestTM();
+        updateonlyAP();
         
         update();
     }

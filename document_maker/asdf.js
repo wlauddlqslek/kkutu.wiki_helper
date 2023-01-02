@@ -1,33 +1,15 @@
 window.onload = function () {
     // 원본 업데이트
     function update() {
-        let c = d.ctitlefirst + d.ctitlelast +
-        d.cattackSH + d.cattackKT + d.cattackAP + d.cattackGT + d.cattackMT +
-        d.cdefenseSH + d.cdefenseKT + d.cdefenseAP + d.cdefenseGT + d.cdefenseMT +
-        d.chanbangSH + d.chanbangKT + d.chanbangAP + d.chanbangGT + d.chanbangMT +
-        d.clongestSH + d.clongestAP + d.clongestTM +
-        d.conlySH + d.conlyAP +
-        d.cdollim
-        let t = d.tota + d.tsubtitlein + d.tsubtitleout +
-        d.tlongestTM + d.tlongestSH + d.tlongestAP +
-        d.tonlySH + d.tonlyAP
-        let w = d.wtitleorigin + d.wtitleforeign + d.wimage + d.wimagedescript + d.wtheme + d.wtitlelength
-        let f = d.ftitle +
-        d.fhunmin +
-        d.fattack + d.fdefense + d.fhanbang + 
-        d.flongestTM +  d.flongestSH + d.flongestAP +
-        d.fonlySH + d.fonlyAP +
-        d.fdollim
-
-        copy.value =  p.title && p.summary
-? `[[분류:]]${c}${t}
-{{단어${w}
+        $s.copy.value =  p.title && p.theme && p.summary
+? `[[분류:]]${Object.values(d.c).join('')}${Object.values(d.t).join('')}
+{{단어${Object.values(d.w).join('')}
 |가미션=1
 }}
 {{목차}}
 ${d.summary}
 
-{{특징${f}
+{{특징${Object.values(d.f).join('')}
 }}
 == 둘러보기 ==
 {{}}${d.ref}`
@@ -65,7 +47,7 @@ ${d.summary}
     function attack(code, name) {
         let c = eval('p.' + code);
 
-        d['c' + code] = c ? `[[분류:공격 단어/한국어 ${name}]]` : '';
+        d.c[code] = c ? `[[분류:공격 단어/한국어 ${name}]]` : '';
 
         if (p.attack.includes(name)) {
             if (!c) p.attack = p.attack.filter(a => a !== name);
@@ -74,17 +56,17 @@ ${d.summary}
         };
 
         if (p.attackSH || p.attackKT || p.attackAP || p.attackGT || p.attackMT) {
-            p.attack = p.attack.sort((a, b) => modes.indexOf(a) - modes.indexOf(b));
-            d.fattack = `\n|공격 단어=한국어 ${p.attack.join('·')}`;
+            p.attack = p.attack.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
+            d.f.attack = `\n|공격 단어=한국어 ${p.attack.join('·')}`;
         } else {
-            d.fattack = '';
+            d.f.attack = '';
         };
     }
     // 방어 단어
     function defense(code, name) {
         let c = eval('p.' + code);
 
-        d['c' + code] = c ? `[[분류:방어 단어/한국어 ${name}]]` : '';
+        d.c[code] = c ? `[[분류:방어 단어/한국어 ${name}]]` : '';
 
         if (p.defense.includes(name)) {
             if (!c) p.defense = p.defense.filter(a => a !== name);
@@ -93,17 +75,17 @@ ${d.summary}
         };
 
         if (p.defenseSH || p.defenseKT || p.defenseAP || p.defenseGT || p.defenseMT) {
-            p.defense = p.defense.sort((a, b) => modes.indexOf(a) - modes.indexOf(b));
-            d.fdefense = `\n|방어 단어=한국어 ${p.defense.join('·')}`;
+            p.defense = p.defense.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
+            d.f.defense = `\n|방어 단어=한국어 ${p.defense.join('·')}`;
         } else {
-            d.fdefense = '';
+            d.f.defense = '';
         };
     }
     // 한방 단어
     function hanbang(code, name) {
         let c = eval('p.' + code);
         
-        d['c' + code] = c ? `[[분류:한방 단어/한국어 ${name}]]` : '';
+        d.c[code] = c ? `[[분류:한방 단어/한국어 ${name}]]` : '';
 
         if (p.hanbang.includes(name)) {
             if (!c) p.hanbang = p.hanbang.filter(a => a !== name);
@@ -112,162 +94,182 @@ ${d.summary}
         };
 
         if (p.hanbangSH || p.hanbangKT || p.hanbangAP || p.hanbangGT || p.hanbangMT) {
-            p.hanbang = p.hanbang.sort((a, b) => modes.indexOf(a) - modes.indexOf(b));
-            d.fhanbang = `\n|한방 단어=한국어 ${p.hanbang.join('·')}`;
+            p.hanbang = p.hanbang.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
+            d.f.hanbang = `\n|한방 단어=한국어 ${p.hanbang.join('·')}`;
         } else {
-            d.fhanbang = '';
+            d.f.hanbang = '';
         };
     }
     // 끝말잇기 최장문 업데이트
     function updatelongestSH() {
         if (p.longestSH) {
-            d.clongestSH = `[[분류:최장문/한국어 끝말잇기]]`;
-            d.tlongestSH = `\n{{최장문|첫 글자=${p.titlefirst}}}`;
-            d.flongestSH = `\n|첫 글자=${p.titlefirst}`;
+            d.c.longestSH = `[[분류:최장문/한국어 끝말잇기]]`;
+            d.t.longestSH = `\n{{최장문|첫 글자=${p.titlefirst}}}`;
+            d.f.longestSH = `\n|첫 글자=${p.titlefirst}`;
         } else {
-            d.clongestSH = '';
-            d.tlongestSH = '';
-            d.flongestSH = '';
+            d.c.longestSH = '';
+            d.t.longestSH = '';
+            d.f.longestSH = '';
         };
     }
     // 앞말잇기 최장문 업데이트
     function updatelongestAP() {
         if (p.longestAP) {
-            d.clongestAP = `[[분류:최장문/한국어 앞말잇기]]`;
-            d.tlongestAP = `\n{{최장문|끝 글자=${p.titlelast}}}`;
-            d.flongestAP = `\n|끝 글자=${p.titlelast}`;
+            d.c.longestAP = `[[분류:최장문/한국어 앞말잇기]]`;
+            d.t.longestAP = `\n{{최장문|끝 글자=${p.titlelast}}}`;
+            d.f.longestAP = `\n|끝 글자=${p.titlelast}`;
         } else {
-            d.clongestAP = '';
-            d.tlongestAP = '';
-            d.flongestAP = '';
+            d.c.longestAP = '';
+            d.t.longestAP = '';
+            d.f.longestAP = '';
         };
     }
     // 주제 최장문 업데이트
     function updatelongestTM() {
         if (p.longestTM) {
-            d.clongestTM = `[[분류:주제 최장문]]`;
-            d.tlongestTM = `\n{{주제 최장문|문서=${p.longestTM}}}`; // p.longestTM <- 배열이 될 예정
-            d.flongestTM = `\n|주제문서=${p.longestTM}`; // 사이에 ]], [[ 집어넣기
+            d.c.longestTM = `[[분류:주제 최장문]]`;
+            d.t.longestTM = `\n{{주제 최장문|문서=${p.longestTM}}}`; // p.longestTM <- 배열이 될 예정
+            d.f.longestTM = `\n|주제문서=${p.longestTM}`; // 사이에 ]], [[ 집어넣기
         } else { 
-            d.clongestTM = '';
-            d.tlongestTM = '';
-            d.flongestTM = '';
+            d.c.longestTM = '';
+            d.t.longestTM = '';
+            d.f.longestTM = '';
         }
     }
     // 끝말잇기 유일한 단어 업데이트
     function updateonlySH() {
         if (p.onlySH) {
-            d.conlySH = `[[분류:유일한 단어/한국어 끝말잇기]]`;
-            d.tonlySH = `\n{{유일한 단어|첫 글자=${p.titlefirst}}}`;
-            d.fonlySH = `\n|유일첫 글자=${p.titlefirst}`;
+            d.c.onlySH = `[[분류:유일한 단어/한국어 끝말잇기]]`;
+            d.t.onlySH = `\n{{유일한 단어|첫 글자=${p.titlefirst}}}`;
+            d.f.onlySH = `\n|유일첫 글자=${p.titlefirst}`;
         } else {
-            d.conlySH = '';
-            d.tonlySH = '';
-            d.fonlySH = '';
+            d.c.onlySH = '';
+            d.t.onlySH = '';
+            d.f.onlySH = '';
         };
     }
     // 앞말잇기 유일한 단어 업데이트
     function updateonlyAP() {
         if (p.onlyAP) {
-            d.conlyAP = `[[분류:유일한 단어/한국어 앞말잇기]]`;
-            d.tonlyAP = `\n{{유일한 단어|끝 글자=${p.titlelast}}}`;
-            d.fonlyAP = `\n|유일끝 글자=${p.titlelast}`;
+            d.c.onlyAP = `[[분류:유일한 단어/한국어 앞말잇기]]`;
+            d.t.onlyAP = `\n{{유일한 단어|끝 글자=${p.titlelast}}}`;
+            d.f.onlyAP = `\n|유일끝 글자=${p.titlelast}`;
         } else {
-            d.conlyAP = '';
-            d.tonlyAP = '';
-            d.fonlyAP = '';
+            d.c.onlyAP = '';
+            d.t.onlyAP = '';
+            d.f.onlyAP = '';
         };
     }
 
-    const inputtitle = document.getElementById("title");
-    const inputtitleorigin = document.getElementById("titleorigin");
-    const inputtitleforeign = document.getElementById("titleforeign");
-    const inputsubtitlein = document.getElementById("subtitlein");
-    const inputsubtitleout = document.getElementById("subtitleout");
-    const inputota = document.getElementById("ota");
-    const inputcategory = document.getElementById("category");
-    const inputtheme = document.getElementById("theme");
-    const inputtemplate = document.getElementById("template");
-    const inputimage = document.getElementById("image");
-    const inputimagedescript = document.getElementById("imagedescript");
-    const cbattackSH = document.getElementById("attackSH");
-    const cbattackKT = document.getElementById("attackKT");
-    const cbattackMT = document.getElementById("attackMT");
-    const cbattackGT = document.getElementById("attackGT");
-    const cbattackAP = document.getElementById("attackAP");
-    const cbdefenseSH = document.getElementById("defenseSH");
-    const cbdefenseKT = document.getElementById("defenseKT");
-    const cbdefenseMT = document.getElementById("defenseMT");
-    const cbdefenseGT = document.getElementById("defenseGT");
-    const cbdefenseAP = document.getElementById("defenseAP");
-    const cbhanbangSH = document.getElementById("hanbangSH");
-    const cbhanbangKT = document.getElementById("hanbangKT");
-    const cbhanbangMT = document.getElementById("hanbangMT");
-    const cbhanbangGT = document.getElementById("hanbangGT");
-    const cbhanbangAP = document.getElementById("hanbangAP");
-    const cblongestSH = document.getElementById('longestSH');
-    const cblongestAP = document.getElementById('longestAP');
-    const inputlongestTM = document.getElementById('longestTM');
-    const cbonlySH = document.getElementById('onlySH');
-    const cbonlyAP = document.getElementById('onlyAP');
-    const selectdelete = document.getElementById("delete");
-    const selectmodify = document.getElementById("modify");
-    const inputsummary = document.getElementById("summary");
-    const copy = document.getElementById("copy");
-
-    let modes = ['끝말잇기', '쿵쿵따', '앞말잇기', '가운뎃말잇기', '끄투'];
-    let d = {
-        ctitlefirst: '',
-        ctitlelast: '',
-        cattackSH: '',
-        cattackKT: '',
-        cattackMT: '',
-        cattackGT: '',
-        cattackAP: '',
-        cdefenseSH: '',
-        cdefenseKT: '',
-        cdefenseMT: '',
-        cdefenseGT: '',
-        cdefenseAP: '',
-        chanbangSH: '',
-        chanbangKT: '',
-        chanbangMT: '',
-        chanbangGT: '',
-        chanbangAP: '',
-        clongestSH: '',
-        clongestAP: '',
-        clongestTM: '',
-        conlySH: '',
-        conlyAP: '',
-        cdollim: '',
-        tota: '',
-        tsubtitlein: '',
-        tsubtitleout: '',
-        tlongestSH: '',
-        tlongestAP: '',
-        tlongestTM: '',
-        tonlySH: '',
-        tonlyAP: '',
-        wtitleorigin: '',
-        wtitleforeign: '',
-        wimage: '',
-        wimagedescript: '',
-        wtheme: '',
-        wtitlelength: '',
-        summary: '',
-        ftitle: '',
-        fhunmin: '',
-        fattack: '',
-        fdefense: '',
-        fhanbang: '',
-        flongestSH: '',
-        flongestAP: '',
-        flongestTM: '',
-        fonlySH: '',
-        fonlyAP: '',
-        fdollim: '',
-        ref: '',
+    const $s = {
+        inputtitle: document.getElementById("title"),
+        inputtitleorigin: document.getElementById("titleorigin"),
+        inputtitleforeign: document.getElementById("titleforeign"),
+        inputsubtitlein: document.getElementById("subtitlein"),
+        inputsubtitleout: document.getElementById("subtitleout"),
+        inputota: document.getElementById("ota"),
+        inputcategory: document.getElementById("category"),
+        inputtheme: document.getElementById("theme"),
+        inputtemplate: document.getElementById("template"),
+        inputimage: document.getElementById("image"),
+        inputimagedescript: document.getElementById("imagedescript"),
+        cbjunche: document.getElementById("junche"),
+        cbattackSH: document.getElementById("attackSH"),
+        cbattackKT: document.getElementById("attackKT"),
+        cbattackMT: document.getElementById("attackMT"),
+        cbattackGT: document.getElementById("attackGT"),
+        cbattackAP: document.getElementById("attackAP"),
+        cbdefenseSH: document.getElementById("defenseSH"),
+        cbdefenseKT: document.getElementById("defenseKT"),
+        cbdefenseMT: document.getElementById("defenseMT"),
+        cbdefenseGT: document.getElementById("defenseGT"),
+        cbdefenseAP: document.getElementById("defenseAP"),
+        cbhanbangSH: document.getElementById("hanbangSH"),
+        cbhanbangKT: document.getElementById("hanbangKT"),
+        cbhanbangMT: document.getElementById("hanbangMT"),
+        cbhanbangGT: document.getElementById("hanbangGT"),
+        cbhanbangAP: document.getElementById("hanbangAP"),
+        cblongestSH: document.getElementById('longestSH'),
+        cblongestAP: document.getElementById('longestAP'),
+        inputlongestTM: document.getElementById('longestTM'),
+        cbonlySH: document.getElementById('onlySH'),
+        cbonlyAP: document.getElementById('onlyAP'),
+        selectdelete: document.getElementById("delete"),
+        selectmodify: document.getElementById("modify"),
+        inputsummary: document.getElementById("summary"),
+        copy: document.getElementById("copy"),
     }
+    const MODES = [
+        '끝말잇기',
+        '쿵쿵따',
+        '앞말잇기',
+        '가운뎃말잇기',
+        '끄투'
+    ];
+    let d = {
+        c: {
+            category: '',
+            titlefirst: '',
+            titlelast: '',
+            attackSH: '',
+            attackKT: '',
+            attackAP: '',
+            attackGT: '',
+            attackMT: '',
+            defenseSH: '',
+            defenseKT: '',
+            defenseAP: '',
+            defenseGT: '',
+            defenseMT: '',
+            hanbangSH: '',
+            hanbangKT: '',
+            hanbangAP: '',
+            hanbangGT: '',
+            hanbangMT: '',
+            longestSH: '',
+            longestAP: '',
+            longestTM: '',
+            onlySH: '',
+            onlyAP: '',
+            dollim: '',
+            junche: '',
+        },
+        t: {
+        ota: '',
+        subtitlein: '',
+        subtitleout: '',
+        longestTM: '',
+        longestSH: '',
+        longestAP: '',
+        onlySH: '',
+        onlyAP: '',
+        junche: '',
+        },
+        w: {
+            titleorigin: '',
+            titleforeign: '',
+            image: '',
+            imagedescript: '',
+            theme: '',
+            titlelength: '',
+        },
+        summary: '== 개요 ==',
+        f: {
+            title: '',
+            hunmin: '',
+            attack: '',
+            defense: '',
+            hanbang: '',
+            longestTM: '',
+            longestSH: '',
+            longestAP: '',
+            onlySH: '',
+            onlyAP: '',
+            dollim: '',
+            junche: '',
+        },
+        ref: '',
+    };
     let p = {
         title: '',
         titlefirst: '',
@@ -283,6 +285,7 @@ ${d.summary}
         template: '',
         image: '',
         imagedescript: '',
+        junche: false,
         attack: [],
         attackSH: false,
         attackKT: false,
@@ -306,23 +309,23 @@ ${d.summary}
         longestTM: false,
         onlySH: false,
         onlyAP: false,
-        summary: '',
+        summary: '== 개요 ==',
     };
 
-    inputtitle.onkeyup = function () {
-        p.title = inputtitle.value;
+    $s.inputtitle.onkeyup = function () {
+        p.title = $s.inputtitle.value;
         p.titlelength = p.title.length;
         p.titlefirst = p.title.charAt();
         p.titlelast = p.title.charAt(p.titlelength - 1);
         p.titlehunmin = hunmin();
         
-        d.ctitlefirst = `[[분류:${ro(p.titlefirst)} 시작하는 단어]]`;
-        d.ctitlelast = `[[분류:${ro(p.titlelast)} 끝나는 단어]]`;
-        d.cdollim = p.titlelength >= 2 && p.titlefirst == p.titlelast ? '[[분류:돌림단어]]' : '';
-        d.wtitlelength = `\n|길이=${p.titlelength}`;
-        d.ftitle = `\n|시작=${p.titlefirst}|끝=${p.titlelast}|길이=${p.titlelength}`;
-        d.fhunmin = p.titlehunmin && `\n|훈민정음=${p.titlehunmin}`;
-        d.fdollim = p.titlefirst == p.titlelast ? '\n|돌림단어=O' : '';
+        d.c.titlefirst = `[[분류:${ro(p.titlefirst)} 시작하는 단어]]`;
+        d.c.titlelast = `[[분류:${ro(p.titlelast)} 끝나는 단어]]`;
+        d.c.dollim = p.titlelength >= 2 && p.titlefirst == p.titlelast ? '[[분류:돌림단어]]' : '';
+        d.w.titlelength = `\n|길이=${p.titlelength}`;
+        d.f.title = `\n|시작=${p.titlefirst}|끝=${p.titlelast}|길이=${p.titlelength}`;
+        d.f.hunmin = p.titlehunmin && `\n|훈민정음=${p.titlehunmin}`;
+        d.f.dollim = p.titlefirst == p.titlelast ? '\n|돌림단어=O' : '';
         updatelongestSH();
         updatelongestAP();
         updateonlySH();
@@ -330,197 +333,222 @@ ${d.summary}
 
         update();
     };
-    inputtitleorigin.onkeyup = function () {
-        p.titleorigin = inputtitleorigin.value;
+    $s.inputtitleorigin.onkeyup = function () {
+        p.titleorigin = $s.inputtitleorigin.value;
 
-        d.wtitleorigin = p.titleorigin && `\n|제목=${p.titleorigin}`;
-
-        update();
-    };
-    inputtitleforeign.onkeyup = function () {
-        p.titleforeign = inputtitleforeign.value;
-
-        d.wtitleforeign = p.titleforeign && `\n|원제=${p.titleforeign}`;
+        d.w.titleorigin = p.titleorigin && `\n|제목=${p.titleorigin}`;
 
         update();
     };
-    inputsubtitlein.onkeyup = function () {
-        p.subtitlein = inputsubtitlein.value;
+    $s.inputtitleforeign.onkeyup = function () {
+        p.titleforeign = $s.inputtitleforeign.value;
 
-        d.tsubtitlein = p.subtitlein && `\n{{다른 뜻|설명=부제가 포함된 단어|문서=${p.subtitlein}}}`;
+        d.w.titleforeign = p.titleforeign && `\n|원제=${p.titleforeign}`;
 
         update();
     };
-    inputsubtitleout.onkeyup = function () {
-        p.subtitleout = inputsubtitleout.value;
+    $s.inputsubtitlein.onkeyup = function () {
+        p.subtitlein = $s.inputsubtitlein.value;
+
+        d.t.subtitlein = p.subtitlein && `\n{{다른 뜻|설명=부제가 포함된 단어|문서=${p.subtitlein}}}`;
+
+        update();
+    };
+    $s.inputsubtitleout.onkeyup = function () {
+        p.subtitleout = $s.inputsubtitleout.value;
         
-        d.tsubtitleout = p.subtitleout && `\n{{다른 뜻|설명=부제가 빠진 단어|문서=${p.subtitleout}}}`;
+        d.t.subtitleout = p.subtitleout && `\n{{다른 뜻|설명=부제가 빠진 단어|문서=${p.subtitleout}}}`;
 
         update();
     };
-    inputota.onkeyup = function () {
-        p.ota = inputota.value;
+    $s.inputota.onkeyup = function () {
+        p.ota = $s.inputota.value;
 
-        d.tota = p.ota && `\n{{다른 뜻|설명=정확한 표기|문서=${p.ota}}}`;
-
-        update();
-    };
-    inputimage.onkeyup = function () {
-        p.image = inputimage.value;
-
-        d.wimage = p.image && `\n|이미지=${p.image}`;
+        d.t.ota = p.ota && `\n{{다른 뜻|설명=정확한 표기|문서=${p.ota}}}`;
 
         update();
     };
-    inputimagedescript.onkeyup = function () {
-        p.imagedescript = inputimagedescript.value;
-
-        d.wimagedescript = p.imagedescript && `\n|이미지 설명=${p.imagedescript}`;
+    $s.inputcategory.onkeyup = function () {
+        p.category = $s.inputcategory.value; // 배열로 만들기
+        
+        update();
+    };
+    $s.inputtheme.onkeyup = function () {
+        p.theme = $s.inputtheme.value; // 배열로 만들기
 
         update();
     };
-    cbattackSH.onclick = function () {
-        p.attackSH = cbattackSH.checked;
+    $s.inputimage.onkeyup = function () {
+        p.image = $s.inputimage.value;
+
+        d.w.image = p.image && `\n|이미지=${p.image}`;
+
+        update();
+    };
+    $s.inputimagedescript.onkeyup = function () {
+        p.imagedescript = $s.inputimagedescript.value;
+
+        d.w.imagedescript = p.imagedescript && `\n|이미지 설명=${p.imagedescript}`;
+
+        update();
+    };
+    $s.cbjunche.onclick = function () {
+        p.junche = $s.cbjunche.checked;
+
+        if (p.junche) {
+            d.c.junche = '[[분류:전체에서만 쓸 수 있는 단어]]'
+            d.t.junche = '\n{{전체에서만 쓸 수 있는 단어}}'
+            d.f.junche = '\n|전체=O'
+        } else {
+            d.c.junche = '';
+            d.t.junche = '';
+            d.f.junche = '';
+        }
+
+        update();
+    };
+    $s.cbattackSH.onclick = function () {
+        p.attackSH = $s.cbattackSH.checked;
 
         attack('attackSH', '끝말잇기');
 
         update();
     };
-    cbattackKT.onclick = function () {
-        p.attackKT = cbattackKT.checked;
+    $s.cbattackKT.onclick = function () {
+        p.attackKT = $s.cbattackKT.checked;
 
         attack('attackKT', '쿵쿵따');
 
         update();
     };
-    cbattackAP.onclick = function () {
-        p.attackAP = cbattackAP.checked;
+    $s.cbattackAP.onclick = function () {
+        p.attackAP = $s.cbattackAP.checked;
 
         attack('attackAP', '앞말잇기');
 
         update();
     };
-    cbattackGT.onclick = function () {
-        p.attackGT = cbattackGT.checked;
+    $s.cbattackGT.onclick = function () {
+        p.attackGT = $s.cbattackGT.checked;
 
         attack('attackGT', '가운뎃말잇기');
 
         update();
     };
-    cbattackMT.onclick = function () {
-        p.attackMT = cbattackMT.checked;
+    $s.cbattackMT.onclick = function () {
+        p.attackMT = $s.cbattackMT.checked;
 
         attack('attackMT', '끄투');
 
         update();
     };
-    cbdefenseSH.onclick = function () {
-        p.defenseSH = cbdefenseSH.checked;
+    $s.cbdefenseSH.onclick = function () {
+        p.defenseSH = $s.cbdefenseSH.checked;
         
         defense('defenseSH', '끝말잇기');
         
         update();
     };
-    cbdefenseKT.onclick = function () {
-        p.defenseKT = cbdefenseKT.checked;
+    $s.cbdefenseKT.onclick = function () {
+        p.defenseKT = $s.cbdefenseKT.checked;
         
         defense('defenseKT', '쿵쿵따');
         
         update();
     };
-    cbdefenseAP.onclick = function () {
-        p.defenseAP = cbdefenseAP.checked;
+    $s.cbdefenseAP.onclick = function () {
+        p.defenseAP = $s.cbdefenseAP.checked;
         
         defense('defenseAP', '앞말잇기');
         
         update();
     };
-    cbdefenseGT.onclick = function () {
-        p.defenseGT = cbdefenseGT.checked;
+    $s.cbdefenseGT.onclick = function () {
+        p.defenseGT = $s.cbdefenseGT.checked;
         
         defense('defenseGT', '가운뎃말잇기');
         
         update();
     };
-    cbdefenseMT.onclick = function () {
-        p.defenseMT = cbdefenseMT.checked;
+    $s.cbdefenseMT.onclick = function () {
+        p.defenseMT = $s.cbdefenseMT.checked;
         
         defense('defenseMT', '끄투');
         
         update();
     };
-    cbhanbangSH.onclick = function () {
-        p.hanbangSH = cbhanbangSH.checked;
+    $s.cbhanbangSH.onclick = function () {
+        p.hanbangSH = $s.cbhanbangSH.checked;
         
         hanbang('hanbangSH', '끝말잇기');
         
         update();
     };
-    cbhanbangKT.onclick = function () {
-        p.hanbangKT = cbhanbangKT.checked;
+    $s.cbhanbangKT.onclick = function () {
+        p.hanbangKT = $s.cbhanbangKT.checked;
         
         hanbang('hanbangKT', '쿵쿵따');
         
         update();
     };
-    cbhanbangAP.onclick = function () {
-        p.hanbangAP = cbhanbangAP.checked;
+    $s.cbhanbangAP.onclick = function () {
+        p.hanbangAP = $s.cbhanbangAP.checked;
         
         hanbang('hanbangAP', '앞말잇기');
         
         update();
     };
-    cbhanbangGT.onclick = function () {
-        p.hanbangGT = cbhanbangGT.checked;
+    $s.cbhanbangGT.onclick = function () {
+        p.hanbangGT = $s.cbhanbangGT.checked;
         
         hanbang('hanbangGT', '가운뎃말잇기');
         
         update();
     };
-    cbhanbangMT.onclick = function () {
-        p.hanbangMT = cbhanbangMT.checked;
+    $s.cbhanbangMT.onclick = function () {
+        p.hanbangMT = $s.cbhanbangMT.checked;
         
         hanbang('hanbangMT', '끄투');
         
         update();
     };
-    cblongestSH.onclick = function () {
-        p.longestSH = cblongestSH.checked;
+    $s.cblongestSH.onclick = function () {
+        p.longestSH = $s.cblongestSH.checked;
         
         updatelongestSH();
         
         update();
     }
-    cblongestAP.onclick = function () {
-        p.longestAP = cblongestAP.checked;
+    $s.cblongestAP.onclick = function () {
+        p.longestAP = $s.cblongestAP.checked;
         
         updatelongestAP();
         
         update();
     }
-    inputlongestTM.onkeyup = function () {
-        p.longestTM = inputlongestTM.value; // 나중에 배열로 바꿔
+    $s.inputlongestTM.onkeyup = function () {
+        p.longestTM = $s.inputlongestTM.value; // 나중에 배열로 바꿔
         
         updatelongestTM();
         
         update();
     }
-    cbonlySH.onclick = function () {
-        p.onlySH = cbonlySH.checked;
+    $s.cbonlySH.onclick = function () {
+        p.onlySH = $s.cbonlySH.checked;
         
         updateonlySH();
         
         update();
     }
-    cbonlyAP.onclick = function () {
-        p.onlyAP = cbonlyAP.checked;
+    $s.cbonlyAP.onclick = function () {
+        p.onlyAP = $s.cbonlyAP.checked;
         
         updateonlyAP();
         
         update();
     }
-    inputsummary.onkeyup = function () {
-        p.summary = inputsummary.value;
+    $s.inputsummary.onkeyup = function () {
+        p.summary = $s.inputsummary.value;
 
         d.summary = p.summary;
         d.ref = p.summary.includes('</ref>') ? '\n{{각주}}' : '';

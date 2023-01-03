@@ -1,12 +1,15 @@
 window.onload = function () {
     // 원본 업데이트
     function update() {
-        if (!p.title || arrmt(p.theme) || !p.summary) {
+        let theme = p.theme;
+        let category = p.category;
+
+        if (!p.title || arrmt(theme) || !p.summary) {
             $s.copy.value = '';
             console.log('단어와 주제와 내용은 필수입니다.');
             return;
         };
-        if (!arrmt(p.category) && (p.category.length < p.theme.length)) {
+        if (!arrmt(category) && (category.length < theme.length)) {
             $s.copy.value = '';
             console.log('분류는 주제의 개수 이상이어야 합니다. 분류가 주제라면 분류에 주제를 쓰십시오.');
             return;
@@ -27,7 +30,9 @@ ${d.summary}
     }
     // 배열 값이 비었는지 확인
     function arrmt(a) {
-        return !a.length || (a.length == 1 && a[0] == '')
+        let len = a.length;
+
+        return !len || (len == 1 && a[0] == '')
     }
     // 로 / 으로
     function ro(a) {
@@ -41,17 +46,18 @@ ${d.summary}
     }
     // 자음 변환
     function hunmin() {
-        if (p.titlelength != 2) return '';
-
-        let cho = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
-        let chono = ["ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"]
+        let title = p.title
+        let len = title.length;
+        if (len != 2) return '';
+        const CHO = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+        const CHONO = ["ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"]
         let result = "";
 
-        for(let i = 0; i < p.titlelength; i++) {
-            let code = p.title.charCodeAt(i) - 44032;
-            let acho = cho[Math.floor(code / 588)];
-            if (chono.includes(acho)) return '';
-            if (code > -1 && code < 11172) result += acho;
+        for(let i = 0; i < len; i++) {
+            let code = title.charCodeAt(i) - 44032;
+            let cho = CHO[Math.floor(code / 588)];
+            if (CHONO.includes(cho)) return '';
+            if (code > -1 && code < 11172) result += cho;
             else return '';
         }
 
@@ -59,73 +65,90 @@ ${d.summary}
     }
     // 분류 업데이트
     function updatecategory() {
-        d.c.category = arrmt(p.category)
-        ? p.theme.map(a => `[[분류:${a}]]`).join('')
-        : p.category.map(a => `[[분류:${a}]]`).join('')
+        let theme = p.theme;
+        let category = p.category;
+
+        d.c.category = arrmt(category)
+        ? theme.map(a => `[[분류:${a}]]`).join('')
+        : category.map(a => `[[분류:${a}]]`).join('');
     }
     // 공격 단어
-    function attack(code, name) {
-        let c = eval('p.' + code);
+    function updateattack(code, name) {
+        const pcode = p[code];
+        const MO = MODES;
+        let attack = p.attack;
 
-        d.c[code] = c ? `[[분류:공격 단어/한국어 ${name}]]` : '';
+        d.c[code] = pcode ? `[[분류:공격 단어/한국어 ${name}]]` : '';
 
-        if (p.attack.includes(name)) {
-            if (!c) p.attack = p.attack.filter(a => a !== name);
+        if (attack.includes(name)) {
+            if (!pcode) attack = attack.filter(a => a !== name);
         } else {
-            if (c) p.attack.push(name);
+            if (pcode) attack.push(name);
         };
 
         if (p.attackSH || p.attackKT || p.attackAP || p.attackGT || p.attackMT) {
-            p.attack = p.attack.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
-            d.f.attack = `\n|공격 단어=한국어 ${p.attack.join('·')}`;
+            attack = attack.sort((a, b) => MO.indexOf(a) - MO.indexOf(b));
+            d.f.attack = `\n|공격 단어=한국어 ${attack.join('·')}`;
         } else {
             d.f.attack = '';
         };
+
+        p.attack = attack;
     }
     // 방어 단어
-    function defense(code, name) {
-        let c = eval('p.' + code);
+    function updatedefense(code, name) {
+        const pcode = p[code];
+        const MO = MODES;
+        let defense = p.defense;
 
-        d.c[code] = c ? `[[분류:방어 단어/한국어 ${name}]]` : '';
+        d.c[code] = pcode ? `[[분류:방어 단어/한국어 ${name}]]` : '';
 
-        if (p.defense.includes(name)) {
-            if (!c) p.defense = p.defense.filter(a => a !== name);
+        if (defense.includes(name)) {
+            if (!pcode) defense = defense.filter(a => a !== name);
         } else {
-            if (c) p.defense.push(name);
+            if (pcode) defense.push(name);
         };
 
         if (p.defenseSH || p.defenseKT || p.defenseAP || p.defenseGT || p.defenseMT) {
-            p.defense = p.defense.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
-            d.f.defense = `\n|방어 단어=한국어 ${p.defense.join('·')}`;
+            defense = defense.sort((a, b) => MO.indexOf(a) - MO.indexOf(b));
+            d.f.defense = `\n|방어 단어=한국어 ${defense.join('·')}`;
         } else {
             d.f.defense = '';
         };
+
+        p.defense = defense;
     }
     // 한방 단어
-    function hanbang(code, name) {
-        let c = eval('p.' + code);
-        
-        d.c[code] = c ? `[[분류:한방 단어/한국어 ${name}]]` : '';
+    function updatehanbang(code, name) {
+        const pcode = p[code];
+        const MO = MODES;
+        let hanbang = p.hanbang;
 
-        if (p.hanbang.includes(name)) {
-            if (!c) p.hanbang = p.hanbang.filter(a => a !== name);
+        d.c[code] = pcode ? `[[분류:한방 단어/한국어 ${name}]]` : '';
+
+        if (hanbang.includes(name)) {
+            if (!pcode) hanbang = hanbang.filter(a => a !== name);
         } else {
-            if (c) p.hanbang.push(name);
+            if (pcode) hanbang.push(name);
         };
 
         if (p.hanbangSH || p.hanbangKT || p.hanbangAP || p.hanbangGT || p.hanbangMT) {
-            p.hanbang = p.hanbang.sort((a, b) => MODES.indexOf(a) - MODES.indexOf(b));
-            d.f.hanbang = `\n|한방 단어=한국어 ${p.hanbang.join('·')}`;
+            hanbang = hanbang.sort((a, b) => MO.indexOf(a) - MO.indexOf(b));
+            d.f.hanbang = `\n|한방 단어=한국어 ${hanbang.join('·')}`;
         } else {
             d.f.hanbang = '';
         };
+
+        p.hanbang = hanbang;
     }
     // 끝말잇기 최장문 업데이트
     function updatelongestSH() {
         if (p.longestSH) {
+            let first = p.titlefirst;
+    
             d.c.longestSH = `[[분류:최장문/한국어 끝말잇기]]`;
-            d.t.longestSH = `\n{{최장문|첫 글자=${p.titlefirst}}}`;
-            d.f.longestSH = `\n|첫 글자=${p.titlefirst}`;
+            d.t.longestSH = `\n{{최장문|첫 글자=${first}}}`;
+            d.f.longestSH = `\n|첫 글자=${first}`;
         } else {
             d.c.longestSH = '';
             d.t.longestSH = '';
@@ -135,9 +158,11 @@ ${d.summary}
     // 앞말잇기 최장문 업데이트
     function updatelongestAP() {
         if (p.longestAP) {
+            let last = p.titlelast;
+    
             d.c.longestAP = `[[분류:최장문/한국어 앞말잇기]]`;
-            d.t.longestAP = `\n{{최장문|끝 글자=${p.titlelast}}}`;
-            d.f.longestAP = `\n|끝 글자=${p.titlelast}`;
+            d.t.longestAP = `\n{{최장문|끝 글자=${last}}}`;
+            d.f.longestAP = `\n|끝 글자=${last}`;
         } else {
             d.c.longestAP = '';
             d.t.longestAP = '';
@@ -146,10 +171,12 @@ ${d.summary}
     }
     // 주제 최장문 업데이트
     function updatelongestTM() {
-        if (!arrmt(p.longestTM)) {
+        let theme = p.longestTM;
+
+        if (!arrmt(theme)) {
             d.c.longestTM = `[[분류:주제 최장문]]`;
-            d.t.longestTM = p.longestTM.map(a => `\n{{주제 최장문|문서=${a}}}`).join('');
-            d.f.longestTM = `\n|주제문서=${p.longestTM[0]}` // `\n|주제문서=${p.longestTM.map(a => `${a}`).join(']], [[')}`;
+            d.t.longestTM = theme.map(a => `\n{{주제 최장문|문서=${a}}}`).join('');
+            d.f.longestTM = `\n|주제문서=${theme[0]}` // `\n|주제문서=${p.longestTM.map(a => `${a}`).join(']], [[')}`;
         } else { 
             d.c.longestTM = '';
             d.t.longestTM = '';
@@ -159,9 +186,11 @@ ${d.summary}
     // 끝말잇기 유일한 단어 업데이트
     function updateonlySH() {
         if (p.onlySH) {
+            let first = p.titlefirst;
+    
             d.c.onlySH = `[[분류:유일한 단어/한국어 끝말잇기]]`;
-            d.t.onlySH = `\n{{유일한 단어|첫 글자=${p.titlefirst}}}`;
-            d.f.onlySH = `\n|유일첫 글자=${p.titlefirst}`;
+            d.t.onlySH = `\n{{유일한 단어|첫 글자=${first}}}`;
+            d.f.onlySH = `\n|유일첫 글자=${first}`;
         } else {
             d.c.onlySH = '';
             d.t.onlySH = '';
@@ -171,9 +200,11 @@ ${d.summary}
     // 앞말잇기 유일한 단어 업데이트
     function updateonlyAP() {
         if (p.onlyAP) {
+            let last = p.titlelast;
+    
             d.c.onlyAP = `[[분류:유일한 단어/한국어 앞말잇기]]`;
-            d.t.onlyAP = `\n{{유일한 단어|끝 글자=${p.titlelast}}}`;
-            d.f.onlyAP = `\n|유일끝 글자=${p.titlelast}`;
+            d.t.onlyAP = `\n{{유일한 단어|끝 글자=${last}}}`;
+            d.f.onlyAP = `\n|유일끝 글자=${last}`;
         } else {
             d.c.onlyAP = '';
             d.t.onlyAP = '';
@@ -438,105 +469,105 @@ ${d.summary}
     $s.cbattackSH.onclick = function () {
         p.attackSH = $s.cbattackSH.checked;
 
-        attack('attackSH', '끝말잇기');
+        updateattack('attackSH', '끝말잇기');
 
         update();
     };
     $s.cbattackKT.onclick = function () {
         p.attackKT = $s.cbattackKT.checked;
 
-        attack('attackKT', '쿵쿵따');
+        updateattack('attackKT', '쿵쿵따');
 
         update();
     };
     $s.cbattackAP.onclick = function () {
         p.attackAP = $s.cbattackAP.checked;
 
-        attack('attackAP', '앞말잇기');
+        updateattack('attackAP', '앞말잇기');
 
         update();
     };
     $s.cbattackGT.onclick = function () {
         p.attackGT = $s.cbattackGT.checked;
 
-        attack('attackGT', '가운뎃말잇기');
+        updateattack('attackGT', '가운뎃말잇기');
 
         update();
     };
     $s.cbattackMT.onclick = function () {
         p.attackMT = $s.cbattackMT.checked;
 
-        attack('attackMT', '끄투');
+        updateattack('attackMT', '끄투');
 
         update();
     };
     $s.cbdefenseSH.onclick = function () {
         p.defenseSH = $s.cbdefenseSH.checked;
         
-        defense('defenseSH', '끝말잇기');
+        updatedefense('defenseSH', '끝말잇기');
         
         update();
     };
     $s.cbdefenseKT.onclick = function () {
         p.defenseKT = $s.cbdefenseKT.checked;
         
-        defense('defenseKT', '쿵쿵따');
+        updatedefense('defenseKT', '쿵쿵따');
         
         update();
     };
     $s.cbdefenseAP.onclick = function () {
         p.defenseAP = $s.cbdefenseAP.checked;
         
-        defense('defenseAP', '앞말잇기');
+        updatedefense('defenseAP', '앞말잇기');
         
         update();
     };
     $s.cbdefenseGT.onclick = function () {
         p.defenseGT = $s.cbdefenseGT.checked;
         
-        defense('defenseGT', '가운뎃말잇기');
+        updatedefense('defenseGT', '가운뎃말잇기');
         
         update();
     };
     $s.cbdefenseMT.onclick = function () {
         p.defenseMT = $s.cbdefenseMT.checked;
         
-        defense('defenseMT', '끄투');
+        updatedefense('defenseMT', '끄투');
         
         update();
     };
     $s.cbhanbangSH.onclick = function () {
         p.hanbangSH = $s.cbhanbangSH.checked;
         
-        hanbang('hanbangSH', '끝말잇기');
+        updatehanbang('hanbangSH', '끝말잇기');
         
         update();
     };
     $s.cbhanbangKT.onclick = function () {
         p.hanbangKT = $s.cbhanbangKT.checked;
         
-        hanbang('hanbangKT', '쿵쿵따');
+        updatehanbang('hanbangKT', '쿵쿵따');
         
         update();
     };
     $s.cbhanbangAP.onclick = function () {
         p.hanbangAP = $s.cbhanbangAP.checked;
         
-        hanbang('hanbangAP', '앞말잇기');
+        updatehanbang('hanbangAP', '앞말잇기');
         
         update();
     };
     $s.cbhanbangGT.onclick = function () {
         p.hanbangGT = $s.cbhanbangGT.checked;
         
-        hanbang('hanbangGT', '가운뎃말잇기');
+        updatehanbang('hanbangGT', '가운뎃말잇기');
         
         update();
     };
     $s.cbhanbangMT.onclick = function () {
         p.hanbangMT = $s.cbhanbangMT.checked;
         
-        hanbang('hanbangMT', '끄투');
+        updatehanbang('hanbangMT', '끄투');
         
         update();
     };

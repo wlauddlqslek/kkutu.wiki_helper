@@ -18,7 +18,6 @@ window.onload = function () {
         $s.copy.value =
 `${Object.values(d.c).join('')}${Object.values(d.t).join('')}
 {{단어${Object.values(d.w).join('')}
-|가미션=1
 }}
 {{목차}}
 ${d.summary}
@@ -57,6 +56,18 @@ ${d.summary}
             if (CHONO.includes(cho)) return '';
             if (code > -1 && code < 11172) result += cho;
             else return '';
+        }
+
+        return result;
+    }
+    // 미션 카운터
+    function missioncounter(a) {
+        let title = p.title
+        let len = title.length
+        let result = 0;
+
+        for (let i = 0; i < len; i++) {
+            if (title[i] == a) result++
         }
 
         return result;
@@ -301,6 +312,20 @@ ${d.summary}
             imagedescript: '',
             theme: '',
             titlelength: '',
+            mission1: '',
+            mission2: '',
+            mission3: '',
+            mission4: '',
+            mission5: '',
+            mission6: '',
+            mission7: '',
+            mission8: '',
+            mission9: '',
+            mission10: '',
+            mission11: '',
+            mission12: '',
+            mission13: '',
+            mission14: ''
         },
         summary: '== 개요 ==',
         f: {
@@ -327,6 +352,20 @@ ${d.summary}
         titlehunmin: '',
         titleorigin: '',
         titleforeign: '',
+        mission1: '',
+        mission2: '',
+        mission3: '',
+        mission4: '',
+        mission5: '',
+        mission6: '',
+        mission7: '',
+        mission8: '',
+        mission9: '',
+        mission10: '',
+        mission11: '',
+        mission12: '',
+        mission13: '',
+        mission14: '',
         subtitlein: '',
         subtitleout: '',
         ota: '',
@@ -368,11 +407,39 @@ ${d.summary}
         p.titlefirst = p.title.charAt();
         p.titlelast = p.title.charAt(p.titlelength - 1);
         p.titlehunmin = hunmin();
+        p.mission1 = missioncounter('가');
+        p.mission2 = missioncounter('나');
+        p.mission3 = missioncounter('다');
+        p.mission4 = missioncounter('라');
+        p.mission5 = missioncounter('마');
+        p.mission6 = missioncounter('바');
+        p.mission7 = missioncounter('사');
+        p.mission8 = missioncounter('아');
+        p.mission9 = missioncounter('자');
+        p.mission10 = missioncounter('차');
+        p.mission11 = missioncounter('카');
+        p.mission12 = missioncounter('타');
+        p.mission13 = missioncounter('파');
+        p.mission14 = missioncounter('하');
         
         d.c.titlefirst = `[[분류:${ro(p.titlefirst)} 시작하는 단어]]`;
         d.c.titlelast = `[[분류:${ro(p.titlelast)} 끝나는 단어]]`;
         d.c.dollim = p.titlelength >= 2 && p.titlefirst == p.titlelast ? '[[분류:돌림단어]]' : '';
         d.w.titlelength = `\n|길이=${p.titlelength}`;
+        d.w.mission1 = p.mission1 ? `\n|가미션=${p.mission1}` : '';
+        d.w.mission2 = p.mission2 ? `\n|나미션=${p.mission2}` : '';
+        d.w.mission3 = p.mission3 ? `\n|다미션=${p.mission3}` : '';
+        d.w.mission4 = p.mission4 ? `\n|라미션=${p.mission4}` : '';
+        d.w.mission5 = p.mission5 ? `\n|마미션=${p.mission5}` : '';
+        d.w.mission6 = p.mission6 ? `\n|바미션=${p.mission6}` : '';
+        d.w.mission7 = p.mission7 ? `\n|사미션=${p.mission7}` : '';
+        d.w.mission8 = p.mission8 ? `\n|아미션=${p.mission8}` : '';
+        d.w.mission9 = p.mission9 ? `\n|자미션=${p.mission9}` : '';
+        d.w.mission10 = p.mission10 ? `\n|차미션=${p.mission10}` : '';
+        d.w.mission11 = p.mission11 ? `\n|카미션=${p.mission11}` : '';
+        d.w.mission12 = p.mission12 ? `\n|타미션=${p.mission12}` : '';
+        d.w.mission13 = p.mission13 ? `\n|파미션=${p.mission13}` : '';
+        d.w.mission14 = p.mission14 ? `\n|하미션=${p.mission14}` : '';
         d.f.title = `\n|시작=${p.titlefirst}|끝=${p.titlelast}|길이=${p.titlelength}`;
         d.f.hunmin = p.titlehunmin && `\n|훈민정음=${p.titlehunmin}`;
         d.f.dollim = p.titlefirst == p.titlelast ? '\n|돌림단어=O' : '';
@@ -440,7 +507,7 @@ ${d.summary}
         p.template = [...new Set($s.inputtemplate.value.split(', '))];
 
         d.template = !arrmt(p.template)
-        ? '\n== 둘러보기 ==' + p.template.map(a => `\n{{${a}}}`).join('')
+        ? `\n== 둘러보기 ==${p.template.map(a => `\n{{${a}}}`).join('')}`
         : '';
 
         update();

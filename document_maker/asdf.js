@@ -24,9 +24,7 @@ window.onload = function () {
 ${d.summary}
 
 {{특징${Object.values(d.f).join('')}
-}}
-== 둘러보기 ==
-{{}}${d.ref}`
+}}${d.template}${d.ref}`
     }
     // 배열 값이 비었는지 확인
     function arrmt(a) {
@@ -319,6 +317,7 @@ ${d.summary}
             dollim: '',
             junche: '',
         },
+        template: '',
         ref: '',
     };
     let p = {
@@ -437,6 +436,15 @@ ${d.summary}
 
         update();
     };
+    $s.inputtemplate.onkeyup = function () {
+        p.template = [...new Set($s.inputtemplate.value.split(', '))];
+
+        d.template = !arrmt(p.template)
+        ? '\n== 둘러보기 ==' + p.template.map(a => `\n{{${a}}}`).join('')
+        : '';
+
+        update();
+    }
     $s.inputimage.onkeyup = function () {
         p.image = $s.inputimage.value;
 

@@ -137,7 +137,7 @@ window.onload = function () {
         };
 
         var f = Object.keys(b)
-        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
+        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! width="50" | 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
         .join("\n\n");
 
         showjujemission.value = `[[분류:${j}]][[분류:미션 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 미션 단어 목록이다.\n\n== 목록 ==\n\n${f}`;

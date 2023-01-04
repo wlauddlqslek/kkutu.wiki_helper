@@ -20,6 +20,7 @@ window.onload = function () {
         origin();
         jujejunche();
         jujegim();
+        jujemission();
     }
     // 단어 원본 목록 만들기
     function origin() {
@@ -27,21 +28,26 @@ window.onload = function () {
     }
     // 주제 전체 단어 목록 만들기
     function jujejunche() {
-        if (!words.length || !juje) {
+        let w = words;
+        let len = w.length;
+        let j = juje;
+        const J = JUJE;
+
+        if (!len || !j) {
             showjujejunche.value = "";
             return;
         };
 
         var b = {};
 
-        for (let i = 0; i < words.length; i++) {
-            var c = words[i];
+        for (let i = 0; i < len; i++) {
+            var c = w[i];
             var d = c.charAt();
 
             if (b[d]) {
-                b[d].push(`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`);
+                b[d].push(`|-\n| ${c.length} || [[${J.includes(c) ? `${c}(단어)|${c}` : c}]]`);
             } else {
-                b[d] = [`|-\n| ${c.length} || [[${JUJE.includes(c) ? `${c}(단어)|${c}` : c}]]`];
+                b[d] = [`|-\n| ${c.length} || [[${J.includes(c) ? `${c}(단어)|${c}` : c}]]`];
             };
         };
 
@@ -49,23 +55,67 @@ window.onload = function () {
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`)
         .join("\n\n");
 
-        showjujejunche.value = `[[분류:${juje}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
+        showjujejunche.value = `[[분류:${j}]][[분류:전체 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
-        var a = words.filter(a => a.length >= 9);
+        let a = words.filter(a => a.length >= 9);
+        let j = juje;
 
-        if (!a.length || !juje) {
+        if (!a.length || !j) {
             showjujegim.value = "";
             return;
         };
 
-        var b = a
+        let b = a
         .sort((a, b) => b.length - a.length)
         .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`)
         .join("\n");
 
-        showjujegim.value = `[[분류:${juje}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
+        showjujegim.value = `[[분류:${j}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
+    }
+    // 주제 미션 단어 목록 만들기
+    function jujemission() {
+        let w = words.sort((a, b) => b.length - a.length);
+        let len = w.length;
+        let j = juje;
+        const J = JUJE;
+        const M = ['가', '나', '다', '라', '마', '바', '사', '아', '자', '차', '카', '타', '파', '하'];
+
+        if (!len || !j) {
+            showjujemission.value = "";
+            return;
+        };
+
+        let b = {};
+        let g = {};
+
+        for (let i = 0; i < len; i++) {
+            let c = w[i];
+            let clen = c.length;
+            for (let i2 = 0; i2 < 14; i2++) {
+                let d = M[i2];
+                let e = 0;
+                for (let i3 = 0; i3 < clen; i3++) {
+                    if (c[i3] == d) e++;
+                };
+                if (e >= 2) {
+                    if (b[d]) {
+                        b[d].push(`|-\n| ${clen} || [[${J.includes(c) ? `${c}(단어)|${c}` : c}]] || ${e}`);
+                        g[d].push(e)
+                    } else {
+                        b[d] = [`|-\n| ${clen} || [[${J.includes(c) ? `${c}(단어)|${c}` : c}]] || ${e}`];
+                        g[d] = [e]
+                    };
+                };
+            };
+        };
+
+        var f = Object.keys(b)
+        .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
+        .join("\n\n");
+
+        showjujemission.value = `[[분류:${j}]][[분류:미션 단어 목록]]\n{{상위 문서|${juje2}}}\n{{목차}}\n== 개요 ==\n[[${juje3}]] 주제의 미션 단어 목록이다.\n\n== 목록 ==\n\n${f}`;
     }
 
     const inputdocument = document.getElementById("inputdocument");
@@ -75,9 +125,11 @@ window.onload = function () {
     const showorigin = document.getElementById("showorigin");
     const showjujejunche = document.getElementById("showjujejunche");
     const showjujegim = document.getElementById("showjujegim");
+    const showjujemission = document.getElementById("showjujemission");
     const copyorigin = document.getElementById("copyorigin");
     const copyjujejunche = document.getElementById("copyjujejunche");
     const copyjujegim = document.getElementById("copyjujegim");
+    const copyjujemission = document.getElementById("copyjujemission");
 
     const JUJE = [
         '대문',
@@ -232,6 +284,10 @@ window.onload = function () {
     };
     copyjujegim.onclick = function () {
         showjujegim.select();
+        document.execCommand('copy');
+    };
+    copyjujemission.onclick = function () {
+        showjujemission.select();
         document.execCommand('copy');
     };
 

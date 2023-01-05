@@ -11,7 +11,12 @@ window.onload = function () {
         };
         if (!arrmt(category) && (category.length < theme.length)) {
             $s.copy.value = '';
-            console.log('분류는 주제의 개수 이상이어야 합니다. 분류가 주제라면 분류에 주제를 쓰십시오.');
+            console.log(
+ `분류는 주제의 개수 이상이어야 합니다. 분류가 주제라면 분류에 주제를 쓰십시오.
+ex) 단어 칸: 타마키이로하
+    분류 칸: 마기아 레코드/플레이어블 캐릭터, 캐릭터
+    주제 칸: 마법소녀 마도카☆마기카, 캐릭터`
+            );
             return;
         };
 
@@ -181,6 +186,8 @@ ${d.summary}
     // 주제 최장문 업데이트
     function updatelongestTM() {
         let theme = p.longestTM;
+
+        if (theme.length >= 2) console.log('틀:특징의 주제 최장문은 유감스럽게도 하나의 주제 밖에 쓸 수 없습니다.')
 
         if (!arrmt(theme)) {
             d.c.longestTM = `[[분류:주제 최장문]]`;
@@ -693,5 +700,12 @@ ${d.summary}
     console.log(
 `
 `
+    );
+    console.log(
+`분류, 주제, 주제 최장문 칸은 ', '로 단어를 나눕니다.
+ex) 단어 칸: 타마키이로하
+    분류 칸: 마기아 레코드/플레이어블 캐릭터, 캐릭터
+    주제 칸: 마법소녀 마도카☆마기카, 캐릭터
+    `
     );
 }

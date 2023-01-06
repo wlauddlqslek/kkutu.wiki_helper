@@ -136,6 +136,10 @@ window.onload = function () {
             };
         };
 
+        for (let i = 0; i < 14; i++) {
+            if (b[M[i]].length == 0) delete b[M[i]];
+        };
+
         var f = Object.keys(b)
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! width="50" | 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
         .join("\n\n");

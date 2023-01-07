@@ -232,9 +232,9 @@ ${d.summary}
         inputtitle: document.getElementById("title"),
         inputtitleorigin: document.getElementById("titleorigin"),
         inputtitleforeign: document.getElementById("titleforeign"),
-        inputsubtitlein: document.getElementById("subtitlein"),
+        /* inputsubtitlein: document.getElementById("subtitlein"),
         inputsubtitleout: document.getElementById("subtitleout"),
-        inputota: document.getElementById("ota"),
+        inputota: document.getElementById("ota"), */
         inputcategory: document.getElementById("category"),
         inputtheme: document.getElementById("theme"),
         inputtemplate: document.getElementById("template"),
@@ -471,27 +471,27 @@ ${d.summary}
 
         update();
     };
-    $s.inputsubtitlein.onkeyup = function () {
+    /* $s.inputsubtitlein.onkeyup = function () {
         p.subtitlein = $s.inputsubtitlein.value;
 
         d.t.subtitlein = p.subtitlein && `\n{{다른 뜻|설명=부제가 포함된 단어|문서=${p.subtitlein}}}`;
 
         update();
-    };
-    $s.inputsubtitleout.onkeyup = function () {
+    }; */
+    /* $s.inputsubtitleout.onkeyup = function () {
         p.subtitleout = $s.inputsubtitleout.value;
-        
+
         d.t.subtitleout = p.subtitleout && `\n{{다른 뜻|설명=부제가 빠진 단어|문서=${p.subtitleout}}}`;
 
         update();
-    };
-    $s.inputota.onkeyup = function () {
+    }; */
+    /* $s.inputota.onkeyup = function () {
         p.ota = $s.inputota.value;
 
         d.t.ota = p.ota && `\n{{다른 뜻|설명=정확한 표기|문서=${p.ota}}}`;
 
         update();
-    };
+    }; */
     $s.inputcategory.onkeyup = function () {
         p.category = [...new Set($s.inputcategory.value.split(', '))];
 

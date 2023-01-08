@@ -278,6 +278,7 @@ ${d.summary}
             category: '',
             titlefirst: '',
             titlelast: '',
+            long: '',
             attackSH: '',
             attackKT: '',
             attackAP: '',
@@ -431,6 +432,7 @@ ${d.summary}
         
         d.c.titlefirst = `[[분류:${ro(p.titlefirst)} 시작하는 단어]]`;
         d.c.titlelast = `[[분류:${ro(p.titlelast)} 끝나는 단어]]`;
+        d.c.long = p.titlelength >= 9 ? '[[분류:긴 단어/한국어]]' : '';
         d.c.dollim = p.titlelength >= 2 && p.titlefirst == p.titlelast ? '[[분류:돌림단어]]' : '';
         d.w.titlelength = `\n|길이=${p.titlelength}`;
         d.w.mission1 = p.mission1 ? `\n|가미션=${p.mission1}` : '';

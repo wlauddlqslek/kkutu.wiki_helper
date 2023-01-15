@@ -7,12 +7,12 @@ window.onload = function () {
     }
     
     $MENU.portal.onclick = function () {
-        location.replace('/kkutu.wiki_helper/html/portal')
+        location.replace('/kkutu.wiki_helper/portal')
     };
     $MENU.mrkmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/html/mrkmaker')
+        location.replace('/kkutu.wiki_helper/mrkmaker')
     };
     $MENU.docmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/html/docmaker')
+        location.replace('/kkutu.wiki_helper/docmaker')
     };
 }

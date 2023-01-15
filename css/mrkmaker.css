@@ -1,3 +1,13 @@
+body {
+	color: #EEEEEE;
+    padding: 0px;
+    margin: 0px;
+}
+body * {
+    margin: 0px;
+    border-width: 0px;
+    padding: 0px;
+}
 .Middle {
 	width: 1500px;
     height: 750px;
@@ -8,40 +18,34 @@
 .Bottom {
     width: 100%;
 }
-p {
+p, input, textarea {
+    padding: 2px;
     font-weight: bold;
 }
-textarea {
-    height: 500px;
-    width: 200px;
-    margin: 2px;
+input, textarea {
     border-width: 2px;
-    font-weight: bold;
+}
+.inputwords, .inputjuje, .showwords, .buttoncopy {
+    margin: 2px;
+}
+.inputwords, .inputjuje {
+    float: left;
+}
+.showwords, .buttoncopy {
+    float: right;
+}
+.inputwords, .showwords {
+    height: 500px;
+    width: 192px;
     resize: none;
 }
-.inputwords {
-    float: left;
-}
-.showwords {
-    float: right;
-}
-input {
-    height: 44px;
-    margin: 2px;
-    border-width: 2px;
-    font-weight: bold;
-}
 .inputjuje {
-    float: left;
-    width: 624px;
-}
-button {
-    height: 50px;
-    margin: 2px;
-    border-width: 2px;
-    font-weight: bold;
+    width: 600px;
+    height: 42px;
 }
 .buttoncopy {
-    float: right;
-    width: 208px;
+    width: 200px;
+    height: 50px;
+    border-width: 2px;
+    font-weight: bold;
 }

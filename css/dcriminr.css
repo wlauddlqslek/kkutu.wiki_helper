@@ -1,0 +1,60 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+body * {
+    margin: 0px;
+    border-width: 0px;
+    padding: 0px;
+}
+.Top {
+    width: 100%;
+	height: 30px;
+	background-color: #EEEEEE;
+}
+.menu {
+	width: 100px;
+	height: 100%;
+	background-color: #EEEEEE;
+}
+.Middle {
+	width: 1500px;
+    height: 750px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.M1, .M2 {
+    height: 100%;
+    float: left;
+}
+.M1 {
+    width: 40%;
+}
+.M2 {
+    width: 60%;
+}
+.Bottom {
+    width: 100%;
+}
+input, textarea, .is, .bt {
+    margin: 2px;
+    border-width: 2px;
+    padding: 2px;
+    font-weight: bold;
+}
+.words, .bt {
+    float: right;
+}
+.word {
+    width: 492px;
+}
+.words {
+    height: 500px;
+    width: 192px;
+    resize: none;
+}
+.is, .bt {
+    width: 200px;
+    height: 50px;
+}

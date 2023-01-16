@@ -718,7 +718,7 @@ ${d.summary}
   |  / |                     |   |  |
  /   / |                     |   /  /
  |  /  |   .             .   |  |   /`
-            );
+    );
     console.log(
 `분류, 주제, 주제 최장문 칸은 ', '로 단어를 나눕니다.
 ex) 단어 칸: 타마키이로하
@@ -729,9 +729,10 @@ ex) 단어 칸: 타마키이로하
     const $MENU = {
         portal: document.getElementById("menubtportal"),
         mrkmaker: document.getElementById("menubtmrkmaker"),
-        docmaker: document.getElementById("menubtdocmaker")
+        docmaker: document.getElementById("menubtdocmaker"),
+        dcriminr:  document.getElementById("menubtdcriminr")
     }
-    
+
     $MENU.portal.onclick = function () {
         location.replace('/kkutu.wiki_helper/portal')
     };
@@ -740,5 +741,8 @@ ex) 단어 칸: 타마키이로하
     };
     $MENU.docmaker.onclick = function () {
         location.replace('/kkutu.wiki_helper/docmaker')
+    };
+    $MENU.dcriminr.onclick = function () {
+        location.replace('/kkutu.wiki_helper/dcriminr')
     };
 }

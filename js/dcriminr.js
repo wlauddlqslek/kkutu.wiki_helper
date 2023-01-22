@@ -10,6 +10,10 @@ window.onload = function () {
         $s.wordorigin.value = words[0];
         $s.wordnew.value = '';
     }
+    function copy() {
+        $s.wordorigin.select();
+        document.execCommand('copy');
+    }
 
     const $s = {
         wordorigin: document.getElementById("wordorigin"),
@@ -30,10 +34,16 @@ window.onload = function () {
     let wordsnoexist = [];
 
     $s.btexist.onclick = function () {
-        if (words.length) update(wordsexist, 'wordsexist');
+        if (words.length) {
+            update(wordsexist, 'wordsexist');
+            copy();
+        }
     };
     $s.btnoexist.onclick = function () {
-        if (words.length) update(wordsnoexist, 'wordsnoexist');
+        if (words.length) {
+            update(wordsnoexist, 'wordsnoexist');
+            copy();
+        }
     };
     $s.btupdate.onclick = function () {
         words = [...new Set($s.inputwords.value.split('\n'))];
@@ -46,6 +56,8 @@ window.onload = function () {
 
         $s.wordorigin.value = words[0];
         $s.wordnew.value = '';
+
+        copy();
     };
     $s.copyorigin.onclick = function () {
         $s.wordsorigin.select();

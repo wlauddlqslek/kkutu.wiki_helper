@@ -76,7 +76,7 @@ window.onload = function () {
     }
     // 주제 미션 단어 목록 만들기
     function jujemission() {
-        let w = words
+        let w = [...words]
         w.sort((a, b) => b.length - a.length);
         let len = w.length;
         let j = juje;

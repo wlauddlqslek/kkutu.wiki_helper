@@ -62,7 +62,7 @@ window.onload = function () {
         let w = words.filter(a => a.length >= 9);
         let j = juje;
 
-        if (!a.length || !j) {
+        if (!w.length || !j) {
             showjujegim.value = "";
             return;
         };
@@ -141,7 +141,14 @@ window.onload = function () {
             if (b[M[i]].length == 0) delete b[M[i]];
         };
 
-        let f = Object.keys(b)
+        let missions = Object.keys(b)
+
+        if (missions.length == 0) {
+            showjujemission.value = "";
+            return;
+        }
+
+        let f = missions
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! width="50" | 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
         .join("\n\n");
 

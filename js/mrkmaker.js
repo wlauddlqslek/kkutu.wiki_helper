@@ -8,8 +8,8 @@ window.onload = function () {
     }
     // juje 가져오기
     function updatejuje() {
-        var a = inputdocument.value.match(/(?<=:).+(?=\]\]\[)/);
-        var b = inputjuje.value;
+        const a = inputdocument.value.match(/(?<=:).+(?=\]\]\[)/);
+        const b = inputjuje.value;
 
         juje = !a ? b : b ? b : a;
         juje2 = juje == '분홍꽃' ? '분홍꽃(주제)' : juje;
@@ -38,11 +38,11 @@ window.onload = function () {
             return;
         };
 
-        var b = {};
+        let b = {};
 
         for (let i = 0; i < len; i++) {
-            var c = w[i];
-            var d = c.charAt();
+            let c = w[i];
+            let d = c.charAt();
 
             if (b[d]) {
                 b[d].push(`|-\n| ${c.length} || [[${J.includes(c) ? `${c}(단어)|${c}` : c}]]`);
@@ -51,7 +51,7 @@ window.onload = function () {
             };
         };
 
-        var f = Object.keys(b)
+        let f = Object.keys(b)
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b[a].join("\n")}\n|}`)
         .join("\n\n");
 
@@ -59,7 +59,7 @@ window.onload = function () {
     }
     // 주제 긴 단어 목록 만들기
     function jujegim() {
-        let a = words.filter(a => a.length >= 9);
+        let w = words.filter(a => a.length >= 9);
         let j = juje;
 
         if (!a.length || !j) {
@@ -67,16 +67,17 @@ window.onload = function () {
             return;
         };
 
-        let b = a
+        let m = w
         .sort((a, b) => b.length - a.length)
         .map(a => `|-\n| ${a.length} || [[${JUJE.includes(a) ? `${a}}(단어)|${a}` : a}]]`)
         .join("\n");
 
-        showjujegim.value = `[[분류:${j}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${b}\n|}`
+        showjujegim.value = `[[분류:${j}]][[분류:긴 단어 목록]]\n{{상위 문서|${juje2}}}\n== 개요 ==\n[[${juje3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n${m}\n|}`
     }
     // 주제 미션 단어 목록 만들기
     function jujemission() {
-        let w = words.sort((a, b) => b.length - a.length);
+        let w = words
+        w.sort((a, b) => b.length - a.length);
         let len = w.length;
         let j = juje;
         const J = JUJE;
@@ -140,7 +141,7 @@ window.onload = function () {
             if (b[M[i]].length == 0) delete b[M[i]];
         };
 
-        var f = Object.keys(b)
+        let f = Object.keys(b)
         .map(a => `=== ${a} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어 !! width="50" | 미션\n${b[a].sort((m, n) => g[a][b[a].indexOf(n)] - g[a][b[a].indexOf(m)]).join("\n")}\n|}`)
         .join("\n\n");
 
@@ -277,7 +278,7 @@ window.onload = function () {
     let juje3 = '';
 
     inputdocument.onkeyup = function () {
-        var a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);
+        let a = inputdocument.value.match(/(?<=\| \[\[).+(?=\]\])/g);
 
         wordsorigin = a
         ? a.map(a => a.includes('(단어)') ? a.substr(0, a.indexOf('(단어)')) : a)

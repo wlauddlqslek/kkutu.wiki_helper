@@ -89,7 +89,13 @@ ${d.summary}
     // 공격 단어
     function updateattack(code, name) {
         const pcode = p[code];
-        const MO = MODES;
+        const MO = [
+            '끝말잇기',
+            '쿵쿵따',
+            '앞말잇기',
+            '가운뎃말잇기',
+            '끄투'
+        ];
         let attack = p.attack;
 
         d.c[code] = pcode ? `[[분류:공격 단어/한국어 ${name}]]` : '';
@@ -112,7 +118,13 @@ ${d.summary}
     // 방어 단어
     function updatedefense(code, name) {
         const pcode = p[code];
-        const MO = MODES;
+        const MO = [
+            '끝말잇기',
+            '쿵쿵따',
+            '앞말잇기',
+            '가운뎃말잇기',
+            '끄투'
+        ];
         let defense = p.defense;
 
         d.c[code] = pcode ? `[[분류:방어 단어/한국어 ${name}]]` : '';
@@ -135,7 +147,13 @@ ${d.summary}
     // 한방 단어
     function updatehanbang(code, name) {
         const pcode = p[code];
-        const MO = MODES;
+        const MO = [
+            '끝말잇기',
+            '쿵쿵따',
+            '앞말잇기',
+            '가운뎃말잇기',
+            '끄투'
+        ];
         let hanbang = p.hanbang;
 
         d.c[code] = pcode ? `[[분류:한방 단어/한국어 ${name}]]` : '';
@@ -266,13 +284,6 @@ ${d.summary}
         inputsummary: document.getElementById("summary"),
         copy: document.getElementById("copy"),
     }
-    const MODES = [
-        '끝말잇기',
-        '쿵쿵따',
-        '앞말잇기',
-        '가운뎃말잇기',
-        '끄투'
-    ];
     let d = {
         c: {
             category: '',

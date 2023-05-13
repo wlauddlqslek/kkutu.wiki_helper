@@ -8,15 +8,15 @@ window.addEventListener('load', () => {
     }
 
     $MENU.portal.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/portal.html';
+        location.href = '/kkutu.wiki_helper/portal.html';
     }
     $MENU.mrkmaker.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/mrkmaker.html';
+        location.href = '/kkutu.wiki_helper/mrkmaker.html';
     }
     $MENU.docmaker.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/docmaker.html';
+        location.href = '/kkutu.wiki_helper/docmaker.html';
     }
     $MENU.dcriminr.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/dcriminr.html';
+        location.href = '/kkutu.wiki_helper/dcriminr.html';
     }
 })

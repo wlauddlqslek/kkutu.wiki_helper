@@ -12,12 +12,12 @@ window.addEventListener('load', () => {
     }
 
     $STAGE.mrkmaker.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/mrkmaker.html';
+        location.href = '/kkutu.wiki_helper/mrkmaker.html';
     }
     $STAGE.docmaker.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/docmaker.html';
+        location.href = '/kkutu.wiki_helper/docmaker.html';
     }
     $STAGE.dcriminr.onclick = () => {
-        location.href = '/kkutu.wiki_helper/new/dcriminr.html';
+        location.href = '/kkutu.wiki_helper/dcriminr.html';
     }
 }) 

@@ -1,27 +1,23 @@
-window.onload = function () {
+window.addEventListener('load', () => {
 
     console.log(
-`
-`
+    `
+    `
     );
 
-    const $MENU = {
-        portal: document.getElementById("menubtportal"),
-        mrkmaker: document.getElementById("menubtmrkmaker"),
-        docmaker: document.getElementById("menubtdocmaker"),
-        dcriminr:  document.getElementById("menubtdcriminr")
+    const $STAGE = {
+        mrkmaker: document.getElementById("go-mrkmaker"),
+        docmaker: document.getElementById("go-docmaker"),
+        dcriminr:  document.getElementById("go-dcriminr")
     }
 
-    $MENU.portal.onclick = function () {
-        location.replace('/kkutu.wiki_helper/portal')
-    };
-    $MENU.mrkmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/mrkmaker')
-    };
-    $MENU.docmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/docmaker')
-    };
-    $MENU.dcriminr.onclick = function () {
-        location.replace('/kkutu.wiki_helper/dcriminr')
-    };
-}
+    $STAGE.mrkmaker.onclick = () => {
+        location.href = '/kkutu.wiki_helper/new/mrkmaker.html';
+    }
+    $STAGE.docmaker.onclick = () => {
+        location.href = '/kkutu.wiki_helper/new/docmaker.html';
+    }
+    $STAGE.dcriminr.onclick = () => {
+        location.href = '/kkutu.wiki_helper/new/dcriminr.html';
+    }
+}) 

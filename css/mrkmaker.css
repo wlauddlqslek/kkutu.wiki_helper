@@ -1,60 +1,47 @@
-body {
-    padding: 0px;
-    margin: 0px;
-}
-body * {
-    margin: 0px;
-    border-width: 0px;
-    padding: 0px;
-}
-.Top {
-    width: 100%;
-	height: 30px;
-	background-color: #EEEEEE;
-}
-.menu {
-	width: 100px;
-	height: 100%;
-	background-color: #EEEEEE;
-}
-.Middle {
-	width: 1500px;
-    height: 750px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;
-}
-.Bottom {
-    width: 100%;
-}
-p, input, textarea {
-    padding: 2px;
+.Middle p, .Middle input, .Middle textarea, .Middle button {
     font-weight: bold;
 }
-input, textarea {
-    border-width: 2px;
+.Middle input, .Middle textarea, .Middle button {
+    border: 2px solid black;
+    padding: 2px;
 }
-.inputwords, .inputjuje, .showwords, .buttoncopy {
-    margin: 2px;
-}
-.inputwords, .inputjuje {
-    float: left;
-}
-.showwords, .buttoncopy {
-    float: right;
-}
-.inputwords, .showwords {
-    height: 500px;
-    width: 192px;
+.Middle textarea {
     resize: none;
 }
-.inputjuje {
-    width: 600px;
-    height: 42px;
+.Middle .left, .Middle .right {
+    margin: 20px;
+    display: grid;
+    grid-template-rows: 500px 50px;
+    gap: 4px;
 }
-.buttoncopy {
-    width: 200px;
-    height: 50px;
-    border-width: 2px;
-    font-weight: bold;
+.Middle .left {
+    float: left;
+	grid-template-columns: repeat(3, 200px);
+    width: 608px;
+}
+.Middle .right {
+    float: right;
+	grid-template-columns: repeat(4, 200px);
+    width: 812px;
+}
+.Middle .left input {
+	grid-column: span 3;
+}
+@media (max-width: 1499px) {
+    .Middle .left, .Middle .right {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+        grid-template-rows: 250px 50px;
+    }
+}
+@media (max-width: 851px) {
+    .Middle .left {
+        grid-template-columns: repeat(3,75px);
+        width: 233px;
+    }
+    .Middle .right {
+        grid-template-columns: repeat(4, 75px);
+        width: 312px;
+    }
 }

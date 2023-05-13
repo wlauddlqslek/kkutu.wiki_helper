@@ -1,29 +1,23 @@
-body {
-    padding: 0px;
-    margin: 0px;
+.Middle h1 {
+	font-size: 80px;
+	text-align: center;
+    margin: 20px;
 }
-body * {
-    margin: 0px;
-    border-width: 0px;
-    padding: 0px;
+.Middle button {
+	font-size: 40px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 500px;
+    display: block;
 }
-.Top {
-    width: 100%;
-	height: 30px;
-	background-color: #EEEEEE;
-}
-.menu {
-	width: 100px;
-	height: 100%;
-	background-color: #EEEEEE;
-}
-.Middle {
-	width: 1500px;
-    height: 750px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;
-}
-.Bottom {
-    width: 100%;
+@media (max-width: 600px) {
+	.Middle h1 {
+        font-size: 40px;
+    }
+    .Middle button {
+        font-size: 20px;
+        width: 250px;
+    }
 }

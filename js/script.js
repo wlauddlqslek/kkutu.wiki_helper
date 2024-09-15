@@ -13,9 +13,9 @@ window.addEventListener('load', () => {
     $MENU.mrkmaker.onclick = () => {
         location.href = '/kkutu.wiki_helper/mrkmaker.html';
     }
-    $MENU.docmaker.onclick = () => {
-        location.href = '/kkutu.wiki_helper/docmaker.html';
-    }
+    // $MENU.docmaker.onclick = () => {
+    //     location.href = '/kkutu.wiki_helper/docmaker.html';
+    // }
     $MENU.dcriminr.onclick = () => {
         location.href = '/kkutu.wiki_helper/dcriminr.html';
     }

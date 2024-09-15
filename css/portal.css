@@ -1,23 +1,26 @@
 .Middle h1 {
-	font-size: 80px;
-	text-align: center;
-    margin: 20px;
+  font-size: 80px;
+  text-align: center;
+  margin: 20px;
 }
+
 .Middle button {
 	font-size: 40px;
-    margin: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    width: 500px;
-    display: block;
+  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  width: 500px;
+  display: block;
 }
+
 @media (max-width: 600px) {
-	.Middle h1 {
-        font-size: 40px;
-    }
-    .Middle button {
-        font-size: 20px;
-        width: 250px;
-    }
+  .Middle h1 {
+    font-size: 40px;
+  }
+
+  .Middle button {
+    font-size: 20px;
+    width: 250px;
+  }
 }

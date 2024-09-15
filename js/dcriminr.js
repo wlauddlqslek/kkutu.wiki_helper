@@ -1,5 +1,4 @@
 window.onload = function () {
-
     function update(a, b) {
         let c = words.shift();
         a.push($s.wordnew.value || c);
@@ -71,29 +70,6 @@ window.onload = function () {
         $s.wordsnoexist.select();
         document.execCommand('copy');
     };
-
-    console.log(
-`
-`
-    );
-
-    const $MENU = {
-        portal: document.getElementById("menubtportal"),
-        mrkmaker: document.getElementById("menubtmrkmaker"),
-        docmaker: document.getElementById("menubtdocmaker"),
-        dcriminr:  document.getElementById("menubtdcriminr")
-    }
-
-    $MENU.portal.onclick = function () {
-        location.replace('/kkutu.wiki_helper/portal')
-    };
-    $MENU.mrkmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/mrkmaker')
-    };
-    $MENU.docmaker.onclick = function () {
-        location.replace('/kkutu.wiki_helper/docmaker')
-    };
-    $MENU.dcriminr.onclick = function () {
-        location.replace('/kkutu.wiki_helper/dcriminr')
-    };
 }
+
+// 수정 예정

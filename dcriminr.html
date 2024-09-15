@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/kkutu.wiki_helper/css/dcriminr.css">
-    <script type="text/javascript" src="/kkutu.wiki_helper/js/dcriminr.js"></script>
-    <title>단어 유무 판별기</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/kkutu.wiki_helper/css/style.css">
+  <link rel="stylesheet" href="/kkutu.wiki_helper/css/dcriminr.css">
+  <script type="text/javascript" src="/kkutu.wiki_helper/js/script.js"></script>
+  <script type="text/javascript" src="/kkutu.wiki_helper/js/dcriminr.js"></script>
+  <title>단어 유무 판별기</title>
 </head>
 <body>
-    <div class="Top">
-        <button id="menubtportal" class="menu">포털</button>
-        <button id="menubtmrkmaker" class="menu">목록</button>
-        <button id="menubtdocmaker" class="menu">문서</button>
-        <button id="menubtdcriminr" class="menu">유무</button>
+  <div class="Top">
+    <button id="menu-portal">포털</button>
+    <button id="menu-mrkmaker">목록</button>
+    <button id="menu-docmaker">문서</button>
+    <button id="menu-dcriminr">유무</button>
+  </div>
+  <div class="Middle">
+    <div class="M1">
+      <input id="wordorigin" class="word" readonly="readonly" placeholder="단어">
+      <input id="wordnew" class="word" placeholder="오타 수정 같은 거 (넣으셈)">
+      <button id="btexist" class="is">이씀</button>
+      <button id="btnoexist" class="is">업씀</button>
     </div>
-    <div class="Middle">
-        <div class="M1">
-            <input id="wordorigin" class="word" readonly="readonly" placeholder="단어">
-            <input id="wordnew" class="word" placeholder="오타 수정 같은 거 (넣으셈)">
-            <button id="btexist" class="is">이씀</button>
-            <button id="btnoexist" class="is">업씀</button>
-        </div>
-        <div class="M2">
-            <textarea id="wordsnoexist" class="words" readonly="readonly" placeholder="없는 단어"></textarea>
-            <textarea id="wordsexist" class="words" readonly="readonly" placeholder="있는 단어"></textarea>
-            <textarea id="wordsorigin" class="words" readonly="readonly" placeholder="남은 단어"></textarea>
-            <textarea id="inputwords" class="words" placeholder="검토할 단어장 (넣으셈)"></textarea>
-            <button id="copynoexist" class="bt">복사</button>
-            <button id="copyexist" class="bt">복사</button>
-            <button id="copyorigin" class="bt">복사</button>
-            <button id="btupdate" class="bt">업데이트</button>
-        </div>
+    <div class="M2">
+      <textarea id="wordsnoexist" class="words" readonly="readonly" placeholder="없는 단어"></textarea>
+      <textarea id="wordsexist" class="words" readonly="readonly" placeholder="있는 단어"></textarea>
+      <textarea id="wordsorigin" class="words" readonly="readonly" placeholder="남은 단어"></textarea>
+      <textarea id="inputwords" class="words" placeholder="검토할 단어장 (넣으셈)"></textarea>
+      <button id="copynoexist" class="bt">복사</button>
+      <button id="copyexist" class="bt">복사</button>
+      <button id="copyorigin" class="bt">복사</button>
+      <button id="btupdate" class="bt">업데이트</button>
     </div>
-    <div class="Bottom"></div>
+  </div>
+  <div class="Bottom"></div>
 </body>
 </html>
+
+<!-- 수정 예정 -->

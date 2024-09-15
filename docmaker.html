@@ -1,417 +1,419 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/kkutu.wiki_helper/css/docmaker.css">
-    <script type="text/javascript" src="/kkutu.wiki_helper/js/docmaker.js"></script>
-    <title>분끄위키 문서 생성기</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/kkutu.wiki_helper/css/style.css">
+  <link rel="stylesheet" href="/kkutu.wiki_helper/css/docmaker.css">
+  <script type="text/javascript" src="/kkutu.wiki_helper/js/script.js"></script>
+  <script type="text/javascript" src="/kkutu.wiki_helper/js/docmaker.js"></script>
+  <title>분끄위키 일반 문서 생성기</title>
 </head>
 <body>
-    <div class="Top">
-        <button id="menubtportal" class="menu">포털</button>
-        <button id="menubtmrkmaker" class="menu">목록</button>
-        <button id="menubtdocmaker" class="menu">문서</button>
-        <button id="menubtdcriminr" class="menu">유무</button>
-    </div>
-    <div class="Middle">
-        <table>
+  <div class="Top">
+    <button id="menu-portal">포털</button>
+    <button id="menu-mrkmaker">목록</button>
+    <button id="menu-docmaker">문서</button>
+    <button id="menu-dcriminr">유무</button>
+  </div>
+  <div class="Middle">
+    <table>
+      <tr>
+        <td>
+          <p>단어<p>
+        </td>
+        <td colspan="5">
+          <input type='text' id="title">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>제목<p>
+        </td>
+        <td colspan="5">
+          <input type='text' id="titleorigin">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>원제<p>
+        </td>
+        <td colspan="5">
+          <input type='text' id="titleforeign">
+        </td>
+      </tr>
+      <!--<tr> // 수정 예정
+        <td>
+          <p>부제 포함<p>
+        </td>
+        <td>
+          <input type='text' id="subtitlein">
+        </td>
+        <td>
+          <p>부제 생략<p>
+        </td>
+        <td>
+          <input type='text' id="subtitleout">
+        </td>
+        <td>
+          <p>정확한 표기<p>
+        </td>
+        <td>
+          <input type='text' id="ota">
+        </td>-->
+      </tr>
+      <tr>
+        <td>
+          <p>분류<p>
+        </td>
+        <td>
+          <input type='text' id="category">
+        </td>
+        <td>
+          <p>주제<p>
+        </td>
+        <td>
+          <input type='text' id="theme">
+        </td>
+        <td>
+          <p>둘러보기 틀<p>
+        </td>
+        <td>
+          <input type='text' id="template">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>이미지<p>
+        </td>
+        <td>
+          <input type='text' id="image">
+        </td>
+        <td>
+          <p>이미지 설명<p>
+        </td>
+        <td>
+          <input type='text' id="imagedescript">
+        </td>
+        <td colspan="2">
+          <label>
+            <input type="checkbox" id="junche">
+            전체용
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>공격 단어<p>
+        </td>
+        <td colspan="5">
+          <table>
             <tr>
-                <td>
-                    <p>단어<p>
-                </td>
-                <td colspan="5">
-                    <input type='text' id="title">
-                </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="attackSH">
+                  끝말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="attackKT">
+                  쿵따
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="attackMT">
+                  끄투
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="attackGT">
+                  가말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="attackAP">
+                  앞말
+                </label>
+              </td>
             </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>방어 단어<p>
+        </td>
+        <td colspan="5">
+          <table>
             <tr>
-                <td>
-                    <p>제목<p>
-                </td>
-                <td colspan="5">
-                    <input type='text' id="titleorigin">
-                </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="defenseSH">
+                  끝말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="defenseKT">
+                  쿵따
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="defenseMT">
+                  끄투
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="defenseGT">
+                  가말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="defenseAP">
+                  앞말
+                </label>
+              </td>
             </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>한방 단어</p>
+        </td>
+        <td colspan="5">
+          <table>
             <tr>
-                <td>
-                    <p>원제<p>
-                </td>
-                <td colspan="5">
-                    <input type='text' id="titleforeign">
-                </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="hanbangSH">
+                  끝말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="hanbangKT">
+                  쿵따
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="hanbangMT">
+                  끄투
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="hanbangGT">
+                  가말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="hanbangAP">
+                  앞말
+                </label>
+              </td>
             </tr>
-            <!--<tr> // 수정 예정
-                <td>
-                    <p>부제 포함<p>
-                </td>
-                <td>
-                    <input type='text' id="subtitlein">
-                </td>
-                <td>
-                    <p>부제 생략<p>
-                </td>
-                <td>
-                    <input type='text' id="subtitleout">
-                </td>
-                <td>
-                    <p>정확한 표기<p>
-                </td>
-                <td>
-                    <input type='text' id="ota">
-                </td>-->
-            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>최장문</p>
+        </td>
+        <td>
+          <table>
             <tr>
-                <td>
-                    <p>분류<p>
-                </td>
-                <td>
-                    <input type='text' id="category">
-                </td>
-                <td>
-                    <p>주제<p>
-                </td>
-                <td>
-                    <input type='text' id="theme">
-                </td>
-                <td>
-                    <p>둘러보기 틀<p>
-                </td>
-                <td>
-                    <input type='text' id="template">
-                </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="longestSH">
+                    끝말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="longestAP">
+                    앞말
+                </label>
+              </td>
             </tr>
+          </table>
+        </td>
+        <td>
+          <p>주제 최장문</p>
+        </td>
+        <td>
+          <input type="text" id="longestTM">
+        </td>
+        <td>
+          <p>유일한 단어</p>
+        </td>
+        <td>
+          <table>
             <tr>
-                <td>
-                    <p>이미지<p>
-                </td>
-                <td>
-                    <input type='text' id="image">
-                </td>
-                <td>
-                    <p>이미지 설명<p>
-                </td>
-                <td>
-                    <input type='text' id="imagedescript">
-                </td>
-                <td colspan="2">
-                    <label>
-                        <input type="checkbox" id="junche">
-                        전체용
-                    </label>
-                </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="onlySH">
+                    끝말
+                </label>
+              </td>
+              <td>
+                <label>
+                  <input type="checkbox" id="onlyAP">
+                    앞말
+                </label>
+              </td>
             </tr>
+          </table>
+        </td>
+      </tr>
+      <!--<tr>
+        <td>
+          <p>삭제된 단어<p>
+        </td>
+        <td colspan="4">
+          <table>
             <tr>
-                <td>
-                    <p>공격 단어<p>
-                </td>
-                <td colspan="5">
-                    <table>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="attackSH">
-                                    끝말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="attackKT">
-                                    쿵따
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="attackMT">
-                                    끄투
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="attackGT">
-                                    가말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="attackAP">
-                                    앞말
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+              <td>
+                <select id="deletemonth">
+                  <option value="0">년/월</option>
+                  <option value="2103">2021년 3월</option>
+                  <option value="2104">2021년 4월</option>
+                  <option value="2105">2021년 5월</option>
+                  <option value="2106">2021년 6월</option>
+                  <option value="2107">2021년 7월</option>
+                  <option value="2108">2021년 8월</option>
+                  <option value="2109">2021년 9월</option>
+                  <option value="2110">2021년 10월</option>
+                  <option value="2111">2021년 11월</option>
+                  <option value="2112">2021년 12월</option>
+                  <option value="2201">2022년 1월</option>
+                  <option value="2202">2022년 2월</option>
+                  <option value="2203">2022년 3월</option>
+                  <option value="2204">2022년 4월</option>
+                  <option value="2205">2022년 5월</option>
+                  <option value="2206">2022년 6월</option>
+                  <option value="2207">2022년 7월</option>
+                  <option value="2208">2022년 8월</option>
+                  <option value="2209">2022년 9월</option>
+                  <option value="2210">2022년 10월</option>
+                  <option value="2211">2022년 11월</option>
+                  <option value="2212">2022년 12월</option>
+                  <option value="2301">2023년 1월</option>
+                  <option value="2302">2023년 2월</option>
+                  <option value="2303">2023년 3월</option>
+                  <option value="2304">2023년 4월</option>
+                  <option value="2305">2023년 5월</option>
+                  <option value="2306">2023년 6월</option>
+                  <option value="2307">2023년 7월</option>
+                  <option value="2308">2023년 8월</option>
+                  <option value="2309">2023년 9월</option>
+                  <option value="2310">2023년 10월</option>
+                  <option value="2311">2023년 11월</option>
+                  <option value="2312">2023년 12월</option>
+                </select>
+              </td>
+              <td>
+                <input type="text" id="deletereason" placeholder="이유">
+              </td>
+              <td>
+                <input type="text" id="deletetheme" placeholder="주제">
+              </td>
             </tr>
+          </table>
+        </td>
+        <td>
+          <label>
+            <input type="checkbox" name="readd" value="yes">
+            재추가
+          </label>
+        </td>
+      </tr>-->
+      <!--<tr>
+        <td>
+          <p>수정된 단어<p>
+        </td>
+        <td colspan="4">
+          <table>
             <tr>
-                <td>
-                    <p>방어 단어<p>
-                </td>
-                <td colspan="5">
-                    <table>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="defenseSH">
-                                    끝말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="defenseKT">
-                                    쿵따
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="defenseMT">
-                                    끄투
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="defenseGT">
-                                    가말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="defenseAP">
-                                    앞말
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+              <td>
+                <select id="modifymonth">
+                  <option value="0">년/월</option>
+                  <option value="2103">2021년 3월</option>
+                  <option value="2104">2021년 4월</option>
+                  <option value="2105">2021년 5월</option>
+                  <option value="2106">2021년 6월</option>
+                  <option value="2107">2021년 7월</option>
+                  <option value="2108">2021년 8월</option>
+                  <option value="2109">2021년 9월</option>
+                  <option value="2110">2021년 10월</option>
+                  <option value="2111">2021년 11월</option>
+                  <option value="2112">2021년 12월</option>
+                  <option value="2201">2022년 1월</option>
+                  <option value="2202">2022년 2월</option>
+                  <option value="2203">2022년 3월</option>
+                  <option value="2204">2022년 4월</option>
+                  <option value="2205">2022년 5월</option>
+                  <option value="2206">2022년 6월</option>
+                  <option value="2207">2022년 7월</option>
+                  <option value="2208">2022년 8월</option>
+                  <option value="2209">2022년 9월</option>
+                  <option value="2210">2022년 10월</option>
+                  <option value="2211">2022년 11월</option>
+                  <option value="2212">2022년 12월</option>
+                  <option value="2301">2023년 1월</option>
+                  <option value="2302">2023년 2월</option>
+                  <option value="2303">2023년 3월</option>
+                  <option value="2304">2023년 4월</option>
+                  <option value="2305">2023년 5월</option>
+                  <option value="2306">2023년 6월</option>
+                  <option value="2307">2023년 7월</option>
+                  <option value="2308">2023년 8월</option>
+                  <option value="2309">2023년 9월</option>
+                  <option value="2310">2023년 10월</option>
+                  <option value="2311">2023년 11월</option>
+                  <option value="2312">2023년 12월</option>
+                </select>
+              </td>
+              <td>
+                <input type="text" id="modifyreason" placeholder="이유">
+              </td>
+              <td>
+                <input type="text" id="modifytheme" placeholder="주제">
+              </td>
             </tr>
-            <tr>
-                <td>
-                    <p>한방 단어</p>
-                </td>
-                <td colspan="5">
-                    <table>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="hanbangSH">
-                                    끝말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="hanbangKT">
-                                    쿵따
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="hanbangMT">
-                                    끄투
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="hanbangGT">
-                                    가말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="hanbangAP">
-                                    앞말
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>최장문</p>
-                </td>
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="longestSH">
-                                        끝말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="longestAP">
-                                        앞말
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <p>주제 최장문</p>
-                </td>
-                <td>
-                    <input type="text" id="longestTM">
-                </td>
-                <td>
-                    <p>유일한 단어</p>
-                </td>
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="onlySH">
-                                        끝말
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="checkbox" id="onlyAP">
-                                        앞말
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <!--<tr>
-                <td>
-                    <p>삭제된 단어<p>
-                </td>
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td>
-                                <select id="deletemonth">
-                                    <option value="0">년/월</option>
-                                    <option value="2103">2021년 3월</option>
-                                    <option value="2104">2021년 4월</option>
-                                    <option value="2105">2021년 5월</option>
-                                    <option value="2106">2021년 6월</option>
-                                    <option value="2107">2021년 7월</option>
-                                    <option value="2108">2021년 8월</option>
-                                    <option value="2109">2021년 9월</option>
-                                    <option value="2110">2021년 10월</option>
-                                    <option value="2111">2021년 11월</option>
-                                    <option value="2112">2021년 12월</option>
-                                    <option value="2201">2022년 1월</option>
-                                    <option value="2202">2022년 2월</option>
-                                    <option value="2203">2022년 3월</option>
-                                    <option value="2204">2022년 4월</option>
-                                    <option value="2205">2022년 5월</option>
-                                    <option value="2206">2022년 6월</option>
-                                    <option value="2207">2022년 7월</option>
-                                    <option value="2208">2022년 8월</option>
-                                    <option value="2209">2022년 9월</option>
-                                    <option value="2210">2022년 10월</option>
-                                    <option value="2211">2022년 11월</option>
-                                    <option value="2212">2022년 12월</option>
-                                    <option value="2301">2023년 1월</option>
-                                    <option value="2302">2023년 2월</option>
-                                    <option value="2303">2023년 3월</option>
-                                    <option value="2304">2023년 4월</option>
-                                    <option value="2305">2023년 5월</option>
-                                    <option value="2306">2023년 6월</option>
-                                    <option value="2307">2023년 7월</option>
-                                    <option value="2308">2023년 8월</option>
-                                    <option value="2309">2023년 9월</option>
-                                    <option value="2310">2023년 10월</option>
-                                    <option value="2311">2023년 11월</option>
-                                    <option value="2312">2023년 12월</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" id="deletereason" placeholder="이유">
-                            </td>
-                            <td>
-                                <input type="text" id="deletetheme" placeholder="주제">
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <label>
-                        <input type="checkbox" name="readd" value="yes">
-                        재추가
-                    </label>
-                </td>
-            </tr>-->
-            <!--<tr>
-                <td>
-                    <p>수정된 단어<p>
-                </td>
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td>
-                                <select id="modifymonth">
-                                    <option value="0">년/월</option>
-                                    <option value="2103">2021년 3월</option>
-                                    <option value="2104">2021년 4월</option>
-                                    <option value="2105">2021년 5월</option>
-                                    <option value="2106">2021년 6월</option>
-                                    <option value="2107">2021년 7월</option>
-                                    <option value="2108">2021년 8월</option>
-                                    <option value="2109">2021년 9월</option>
-                                    <option value="2110">2021년 10월</option>
-                                    <option value="2111">2021년 11월</option>
-                                    <option value="2112">2021년 12월</option>
-                                    <option value="2201">2022년 1월</option>
-                                    <option value="2202">2022년 2월</option>
-                                    <option value="2203">2022년 3월</option>
-                                    <option value="2204">2022년 4월</option>
-                                    <option value="2205">2022년 5월</option>
-                                    <option value="2206">2022년 6월</option>
-                                    <option value="2207">2022년 7월</option>
-                                    <option value="2208">2022년 8월</option>
-                                    <option value="2209">2022년 9월</option>
-                                    <option value="2210">2022년 10월</option>
-                                    <option value="2211">2022년 11월</option>
-                                    <option value="2212">2022년 12월</option>
-                                    <option value="2301">2023년 1월</option>
-                                    <option value="2302">2023년 2월</option>
-                                    <option value="2303">2023년 3월</option>
-                                    <option value="2304">2023년 4월</option>
-                                    <option value="2305">2023년 5월</option>
-                                    <option value="2306">2023년 6월</option>
-                                    <option value="2307">2023년 7월</option>
-                                    <option value="2308">2023년 8월</option>
-                                    <option value="2309">2023년 9월</option>
-                                    <option value="2310">2023년 10월</option>
-                                    <option value="2311">2023년 11월</option>
-                                    <option value="2312">2023년 12월</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" id="modifyreason" placeholder="이유">
-                            </td>
-                            <td>
-                                <input type="text" id="modifytheme" placeholder="주제">
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <label>
-                    <input type="checkbox" name="zero" value="yes">
-                        0순위
-                    </label>
-                </td>
-            </tr>-->
-            <tr>
-                <td>
-                    <p>내용<p>
-                </td>
-                <td colspan="5">
-                    <textarea id="summary">== 개요 ==</textarea>
-                </td>
-            </tr>
-        </table>
-        <h1>원본</h1>
-        <textarea id="copy" readonly="readonly"></textarea>
-    </div>
-    <div class="Bottom">
-        <p>남은 것: 자세한 내용, 삭제된 단어 (이유), 수정된 단어 (이유), 재추가된 단어, 0순위 단어<br>현재 한국어 단어+뜻 문서만 지원합니다.</p>
-    </div>
+          </table>
+        </td>
+        <td>
+          <label>
+          <input type="checkbox" name="zero" value="yes">
+            0순위
+          </label>
+        </td>
+      </tr>-->
+      <tr>
+        <td>
+          <p>내용<p>
+        </td>
+        <td colspan="5">
+          <textarea id="summary">== 개요 ==</textarea>
+        </td>
+      </tr>
+    </table>
+    <h1>원본</h1>
+    <textarea id="copy" readonly="readonly"></textarea>
+  </div>
+  <div class="Bottom">
+    <p>남은 것: 자세한 내용, 삭제된 단어 (이유), 수정된 단어 (이유), 재추가된 단어, 0순위 단어<br>현재 한국어 단어+뜻 문서만 지원합니다.</p>
+  </div>
 </body>
 </html>

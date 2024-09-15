@@ -1,333 +1,222 @@
 window.addEventListener('load', () => {
-    const $STAGE = {
-        inputDoc: document.getElementById("input-doc"),
-        inputAdd: document.getElementById("input-add"),
-        inputDel: document.getElementById("input-del"),
-        inputTheme: document.getElementById("input-theme"),
-        showOrigin: document.getElementById("show-origin"),
-        showAll: document.getElementById("show-all"),
-        showLong: document.getElementById("show-long"),
-        showMission: document.getElementById("show-mission"),
-        copyOrigin: document.getElementById("copy-origin"),
-        copyAll: document.getElementById("copy-all"),
-        copyLong: document.getElementById("copy-long"),
-        copyMission: document.getElementById("copy-mission")
+  const $STAGE = {
+    inputDoc: document.getElementById("input-doc"),
+    inputAdd: document.getElementById("input-add"),
+    inputDel: document.getElementById("input-del"),
+    inputTheme: document.getElementById("input-theme"),
+    showOrigin: document.getElementById("show-origin"),
+    showAll: document.getElementById("show-all"),
+    showLong: document.getElementById("show-long"),
+    showMission: document.getElementById("show-mission"),
+    copyOrigin: document.getElementById("copy-origin"),
+    copyAll: document.getElementById("copy-all"),
+    copyLong: document.getElementById("copy-long"),
+    copyMission: document.getElementById("copy-mission")
+  }
+
+  let theme = '';
+  let themeDoc = '';
+  let themeNew = '';
+  let wordsDoc = [];
+  let wordsAdd = [];
+  let wordsDel = [];
+  let wordsOrigin = [];
+  let wordsAll = [];
+  let wordsLong = [];
+  let wordsMission = [];
+
+  function updateTheme() {
+    theme = themeNew || themeDoc;
+  }
+
+  function updateWords() {
+    // 원본 단어 목록 및 긴 순 정렬
+    wordsOrigin = [...new Set([...wordsDoc, ...wordsAdd])]
+      .filter(word => !wordsDel.includes(word))
+      .filter(word => word !== '')
+      .sort()
+      .sort((a, b) => b.length - a.length);
+    const wordsLen = wordsOrigin.length;
+
+
+
+    // 긴 단어 목록
+    wordsLong = [
+      `{| class="wikitable sortable" style="text-align: center;"`,
+      `! width="50" | 길이 !! 단어`
+    ];
+    for (const word of wordsOrigin) {
+      if (word.length < 9) break;
+      wordsLong.push('|-');
+      wordsLong.push(`| ${word.length} || [[${word}]]`);
     }
-    let words = [];
-    let wordsDoc = [];
-    let wordsAdd = [];
-    let wordsDel = [];
-    let theme = '';
-    let themeDoc = '';
-    let themeInput = '';
-    let listOrigin = '';
-    let listAll = '';
-    let listLong = '';
-    let listMission = '';
+    wordsLong.push(`|}`);
 
 
 
-    function updateList() {
-        words = [...new Set([...wordsDoc, ...wordsAdd])]
-        .filter(value => !wordsDel.includes(value))
-        .filter(value => value !== '')
-        .sort();
+    // 미션 단어 목록
+    let missions = Array.from({ length: 14 }, () => []);
+    for (const word of wordsOrigin) {
+      const wordLen = word.length;
+      const wordMissions = new Array(14).fill(0);
 
-        // 원본 단어 목록
-        listOrigin = words.join('\n');
+      for (let i = 0; i < wordLen; i++) {
+        const charIndex = '가나다라마바사아자차카타파하'.indexOf(word[i]);
+        if (charIndex !== -1) wordMissions[charIndex]++;
+      }
 
-        // 전체 단어 목록
-        let prevChar = '';
-        let chars = [];
-        for (let i = 0; i < words.length; i++) {
-            const word = words[i];
-            const wordChar = word.charAt(0);
-            if (prevChar !== wordChar) {
-                prevChar = wordChar
-                chars.push(`=== ${wordChar} ===\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어\n|-\n| ${word.length} || [[${word}]]`)
-            } else {
-                chars[chars.length - 1] += `\n|-\n| ${word.length} || [[${word}]]`
-            }
+      for (let i = 0; i < 14; i++) {
+        if (wordMissions[i] >= 2) missions[i].push([word.length, word, wordMissions[i]]);
+      }
+    }
+
+    wordsMission = [];
+    for (let i = 0; i < 14; i++) {
+      const words = missions[i];
+      const mission = '가나다라마바사아자차카타파하'[i];
+
+      if (words.length > 0) {
+        words.sort((a, b) => b[2] - a[2]);
+        wordsMission.push(`== ${mission} ==`);
+        wordsMission.push(`{| class="wikitable sortable" style="text-align:center;"`);
+        wordsMission.push(`! width="50" | 길이 !! 단어 !! width="50" | 미션`);
+        for (const [wordLen, word, missionLen] of words) {
+          wordsMission.push('|-');
+          wordsMission.push(`| ${wordLen} || [[${word}]] || ${missionLen}`);
         }
-        listAll = chars.join('\n|}\n\n') + '\n|}';
-        
-        // 긴 순 정렬
-        words.sort((a, b) => b.length - a.length);
-
-        // 긴 단어 목록
-        listLong = words
-        .filter(word => word.length >= 9)
-        .map(word => `\n|-\n| ${word.length} || [[${word}]]`)
-        .join('');
-        
-        // 미션 단어 목록
-        listMission = '';
-        let missions = new Array(14).fill(null).map(() => []);
-        for (const word of words) {
-            const wordLen = word.length;
-            const wordMissions = new Array(14).fill(0);
-
-            for (let i = 0; i < wordLen; i++) {
-                const charIndex = '가나다라마바사아자차카타파하'.indexOf(word[i]);
-                if (charIndex !== -1) {
-                    wordMissions[charIndex]++;
-                }
-            }
-            for (let j = 0; j < 14; j++) {
-                if (wordMissions[j] >= 2) {
-                    missions[j].push(`\n|-\n| ${word.length} || [[${word}]] || ${wordMissions[j]}`);
-                }
-            }
-        }
-
-        for (let k = 0; k < 14; k++) {
-            if (missions[k].length > 0) {
-                const missionTable = missions[k].sort((a, b) => b.slice(-1) - a.slice(-1)).join('');
-                listMission += `=== ${'가나다라마바사아자차카타파하'[k]} ===\n{| class="wikitable sortable" style="text-align:center;"\n! width="50" | 길이 !! 단어 !! width="50" | 미션${missionTable}\n|}\n\n`;
-          }
-        }
-    }
-
-    function updateTheme() {
-        const a = themeDoc
-        const b = themeInput
-
-        theme = !a ? b : b ? b : a;
-    }
-
-    function update() {
-        const T = theme;
-        const T2 = T === '분홍꽃' ? '분홍꽃(주제)' : T;
-        const T3 = T === '분홍꽃' ? '분홍꽃(주제)|분홍꽃' : T;
-
-        $STAGE.showOrigin.value = listOrigin;
-        if (T) {
-            $STAGE.showAll.value = listAll && `[[분류:${T}]][[분류:전체 단어 목록]]\n{{상위 문서|${T2}}}\n{{목차}}\n== 개요 ==\n[[${T3}]] 주제의 전체 단어 목록이다.\n\n== 목록 ==\n\n${listAll}`;
-            $STAGE.showLong.value = listLong && `[[분류:${T}]][[분류:긴 단어 목록]]\n{{상위 문서|${T2}}}\n== 개요 ==\n[[${T3}]] 주제의 긴 단어 목록이다.\n\n== 목록 ==\n{| class="wikitable sortable" style="text-align: center;"\n! width="50" | 길이 !! 단어${listLong}\n|}`;
-            $STAGE.showMission.value = listMission && `[[분류:${T}]][[분류:미션 단어 목록]]\n{{상위 문서|${T2}}}\n{{목차}}\n== 개요 ==\n[[${T3}]] 주제의 미션 단어 목록이다.\n\n== 목록 ==\n\n${listMission}`;
-        } else {
-            $STAGE.showAll.value = '';
-            $STAGE.showLong.value = '';
-            $STAGE.showMission.value = '';
-        }
-    }
-
-    function linkWord(word) {
-        const THEMES = [
-            '대문',
-            '분끄위키',
-            '파일올리기',
-            '토론장',
-            '주제',
-            '기타',
-            '경제',
-            '고적',
-            '공업',
-            '교육',
-            '교통',
-            '농업',
-            '문학',
-            '물리',
-            '미술',
-            '동물',
-            '사회',
-            '생물',
-            '수학',
-            '식물',
-            '언어',
-            '역사',
-            '운동',
-            '음악',
-            '지리',
-            '지명',
-            '천문',
-            '컴퓨터',
-            '화학',
-            '가톨릭',
-            '건설',
-            '고유',
-            '광업',
-            '군사',
-            '기계',
-            '기독교',
-            '논리',
-            '민속',
-            '법률',
-            '불교',
-            '수산',
-            '수공',
-            '심리',
-            '약학',
-            '언론',
-            '연영',
-            '예술',
-            '의학',
-            '인명',
-            '전기',
-            '정치',
-            '종교',
-            '책명',
-            '철학',
-            '출판',
-            '통신',
-            '한의학',
-            '항공',
-            '해양',
-            '디지몬',
-            '요괴워치',
-            '포켓몬스터',
-            '니세코이',
-            '도라에몽',
-            '빙과',
-            '오레이모',
-            '원피스',
-            '유루유리',
-            '간식',
-            '게임',
-            '기업',
-            '뮤지컬',
-            '속담',
-            '신조어',
-            '유명인',
-            '직업',
-            '캐릭터',
-            '학교',
-            '공항',
-            '마인크래프트',
-            '메이플스토리',
-            '모두의마블',
-            '분홍꽃',
-            '브롤스타즈',
-            '사이퍼즈',
-            '세븐나이츠',
-            '스타크래프트',
-            '엘소드',
-            '오버워치',
-            '원신',
-            '좀비고등학교',
-            '카트라이더',
-            '쿠키런',
-            '테일즈런너',
-            '하스스톤',
-            '소설',
-            '에세이',
-            '웹툰',
-            '감정',
-            '날씨',
-            '사람',
-            '음식',
-            '인체',
-            '분홍봇',
-            '용어',
-            '아이템',
-        ];
-
-        return THEMES.includes(word) ? `[[${word}(단어)|${word}]]` : `[[${word}]]`
+        wordsMission.push(`|}`);
+        wordsMission.push(``);
+      }
     }
 
 
 
-    $STAGE.inputDoc.onkeyup = () => {
-        const DOC = $STAGE.inputDoc.value
-
-        const ARR = DOC.match(/(?<=\| \[\[).+(?=\]\])/g);
-        wordsDoc = ARR ? ARR.map(a => a.split('(단어)|')[0]) : [];
-        updateList();
-
-        themeDoc = DOC.match(/(?<=:).+(?=\]\]\[)/);
-        updateTheme();
-
-        update();
-    };
-    $STAGE.inputAdd.onkeyup = () => {
-        wordsAdd = $STAGE.inputAdd.value.split("\n");
-        updateList();
-
-        update();
-    };
-    $STAGE.inputDel.onkeyup = () => {
-        wordsDel = $STAGE.inputDel.value.split("\n");
-        updateList();
-
-        update();
-    };
-    $STAGE.inputTheme.onkeyup = () => {
-        themeInput = $STAGE.inputTheme.value;
-        updateTheme();
-
-        update();
-    };
-    $STAGE.copyOrigin.onclick = () => {
-        $STAGE.showOrigin.select();
-        document.execCommand('copy');
-    };
-    $STAGE.copyAll.onclick = () => {
-        $STAGE.showAll.select();
-        document.execCommand('copy');
-    };
-    $STAGE.copyLong.onclick = () => {
-        $STAGE.showLong.select();
-        document.execCommand('copy');
-    };
-    $STAGE.copyMission.onclick = () => {
-        $STAGE.showMission.select();
-        document.execCommand('copy');
-    };
+    // 가나다순 정렬
+    wordsOrigin.sort();
 
 
 
-    console.log(
-`$##################################@@@@@@#=;:~~~~~~-------------~!$@@@@@@@@@#######################$
-$#################################@@@@@@#=;:~~~~~~---------------~;=#@@@@@@@@######################$
-$#################################@@@@@@$!::~~~~~-----------------~:!$@@@@@@@######################$
-$#################################@@@@@#*;:~~~~~~-----------------~~~;$@@@@@@######################$
-$################################@@@@@@$!::~~~~~--------------------~~!#@@@@@######################$
-$################################@@@@@#*;::::~~----------------------~:=#@@@@######################$
-$################################@@@@#=*!;::::;:~--------------------~~!#@@@@@#####################$
-$###############################@@@@@$=!;::::~~~;:--------------------~;$@@@@@#####################$
-$################################@@@$=*;;;;;;!;:~::-------------~~~~~~~:*#@@@@#####################$
-$##############################@@@@#==!;;;;:!$$=*;;:~--------~~:::::::::;#@@@@#####################$
-$##############################@@@$===;;;;:~:!*=$*!!:------~:::~:~~~~~:;!=@@@@#####################$
-$#############################@@@#=;$!;;;;:::::;!;;;;~~~~~~:;;!;;;:;!:~;==@@@@#####################$
-$#############################@@@@$*=;;!!!!!::::::::!::~~::;;!;;;;:;!!::=$#@@@#####################$
-$#############################@@@#=**;;;!**=$=**!;::;~~~~~;:;;::::~~~~::!$#@#######################$
-$@#########################@##@@@$*!;:::::;;!*=*=!;:;~~~~::::;;::::~:~~~;$$@######################@#
-$@@########################@@@@@#$!;:~~~~~~::::;!*;:;~~~~:;:;!****!!;;::;$=$#@############@@#####@@#
-$##########################@@@@@#=;::~~--~~~~~~::::;:~--~:::!$#$$===*!;::=!;=#############@@@@@@@@@#
-#@@########################@@@@@#*:::~------~~~~~::;~~~~~:::;;;;;:::::~~:!*$#@############@@@@@@@@@#
-#@@########################@@@@@$!:::~--------~~~~:~~~-~~::~~:::::~~~~~~::!$#@############@@@@@@@@@#
-#@@#########################@@@@=;:~~~~---------~:~-----~~:~~~~~~~~~~---~~:*#@#############@@@@@@@@#
-#@@@@######################@@@@@*;:~--~:-~-----~:~--~---~~::~~~~~--------~~;##############@@@@@@@@@#
-#@@@@######################@@#@#*;~~--,-:~~~~~~:~-~~~----~~::~~~--------~~-:#######################$
-#@@@@@##########@@#####@@##@@@@#!;:~---,--~~~~~--~~~~----~~~:~~--------~~--~$######################$
-#@@@@@########@@@@@###@@@@@@@@@#!;:~---,,-------~~~~~----~~::::-----~~~----~$######################$
-#@@@@@######@@@@@@@@@@@@@@@@@@@$!;:~~---------~~:~-~~--,--~::~:;::~~:~-,--~:$######################$
-#@@@@@@##@@@@@@@@@@@@@@@@@@@@@@$!;::~~------~~~::------,----::~~~~~--,,---~:#######################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$!;;:~~~~~~~~::~::~--~~------~;:~-----,,---~;#######################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$;;;::~~~~~:;:~~~::;;::~~~~~~~:;:~~-------~:*#######################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$;;;;::::::;:~~~~~:::::::;;;:~~:;:~~------~:=#######################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$;;;;:::::::::~~~~~~~~~~-~~~-~~::;:~~~~~~~:;$#######################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#;::::::~~~:;!;:~~~-----------~::;::~~~~~::!########################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!:::::~~~~:;*!;::~~~~--------~:;;;::::::;;!##@#####################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@=;:::::~~~~~:!;;;::::~~~~~~~:;;;;::::::;;;*@@@@####################$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#=;:::::~~~~~~:;!:::~~:~::::;==!;:::::::;:;$@@@@@@@#@@@@@@@@@@@@@@@#$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@#=*!;:::::~~~~~~::;:;:~~~-~~~:!!;:::~~~:::::!#@@@@@@@@@@@@@@@@@@@@@@@#$
-#@@@@@@@@@@@@@@@@@@@@@@@@@@#*!!!!!;:::~~~~~~~~::~~~~::~:::::~~~:~~~~~::::=@@@@@@@@@@@@@@@@@@@@@@@@#$
-#@@@@@@@@@@@@@@@@@@@@@@@@#*;;:;!!!;:::~~~~~~~~~::~------~~~~~-~:~-~~~:::~;$###@@@@@@@@@@@@#$@@@@@@#$
-#@@@@@@@@@@@@@@@@@@@@@@#*;:::~:;;::::::~~~~~~~~~:~~-----~~~~--~~~-~~~:::~~~;!*=$#@@@@@@@@$**=#@@@@#$
-#@@@@@@@@@@@@@@@@@@@@@$!:~~~~~~~::~~:::~~~~~~-~~~~~~~---~~~---~~~~~~~::~-~-~;;::;=@@@@@@$!;;!=#@@@#$
-#@@@@@@@@@@@@@@@@@@@$!:~~~~~~~~~::~~:::::~~~~---~~~~~~~~------~~~~~~::~---~~:;::~:#@@@@$*;:::!=@@@#=
-#@@@@@@@@@@@@@@@@#$!;~~~~-~~~~~~~~~~:;:::::~~-----------------~~~~~::~----~~~:::--*@@@#*;:~~:;*#@@#=
-#@@@@@@@@@@@@@@#=!;:~~~:~--~~~~~~~~~:!;::::~~~----------------~~~~::~------~~~::--~=$$*!:~~~~:!#@@#=
-#@@@@@@@@@@@@#=!:~~--~~:~~~~~~~~~~-~~!;:::::~~------,,,-------~~~::~-------~~~::-,-~:::~~---~:!$@@#*
-#@@@@@@@@@@@$;~~-------~:~~~~~~~~---~!!;::::~~~----,,,,,-----~~~::------,,-~~~::-,------~---~~!$@#$*
-#@@@@@@@@@#!~--~-------~~~-~~~~~~---~!!;;::::~~---,,-,,,----~~~::-,----,,,-~~~::-,----~~~---~:!#@#=!
-#@@@@@@@#*:~--~---------~~-~~-~~~---~;!;;::::~~~------------~~::-,,---,,,,-~~~:~-----~:~---,-:!##$*;
-#@@@@@@$;~~~--------,---~---~~~~-----:!;::::::~~~---------~~:::-,,,,--,,,,--~~~~,----::~-----:!$#=!:
-#@@@@@=:-~~-------,,,,---------------:!;:::::::~~~~~----~~~::::-,,,,,-,,,,--~~~-,,--~::~-----~;*=!:~
-#@@@#*~-~~-------,,,,,-,-------------~;!;:::::::~~~~~~~~~::::;:-,,,,,-,,,--~~~~~,,-~~~~~~-----~;!;:~
-#@#=;--~-------,,,,,,,-,--,----------~:!;:::::::::::::::::::;;~,,,,,,-,,,,-~~~~~,,-~~~~~~---,,-:;;:~
-$*;~-~~-------,,,,,,,,-,,-,,----------:;;;:::::::::::::::::;;:-,,,,,,-,,,,--~~~~,,-~~~~~~---,,-~:;:~
-:~---~-------,,,,,,,,,-,,-,,----------~:;;::~:::::::::::::;;;~-,,,,,,--,,,--~~~~,,,-~~~~~--,,,-~:::~`
-    );
-})
+    // 전체 단어 목록
+    const chars = new Map();
+    let prevChar = '';
+    for (let i = 0; i < wordsLen; i++) {
+      const word = wordsOrigin[i];
+      const wordChar = word[0];
+      if (prevChar !== wordChar) {
+        chars.set(wordChar, [word]);
+        prevChar = wordChar;
+      } else {
+        chars.get(wordChar).push(word);
+      }
+    }
+
+    wordsAll = [];
+    for (const [char, words] of chars) {
+      wordsAll.push(`== ${char} ==`);
+      wordsAll.push(`{| class="wikitable sortable" style="text-align: center;"`);
+      wordsAll.push(`! width="50" | 길이 !! 단어`);
+      for (const word of words) wordsAll.push(`|-\n| ${word.length} || [[${word}]]`);
+      wordsAll.push(`|}`);
+      wordsAll.push(``);
+    }
+  }
+
+  function getThemeDoc() {
+    if (/^[0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/.test(theme)) {
+      return `${theme}(주제)`;
+    } else {
+      return theme;
+    }
+  }
+
+  function update() {
+    $STAGE.showOrigin.value = wordsOrigin.join('\n');
+    
+    if (theme === '') {
+      $STAGE.showAll.value = '';
+      $STAGE.showLong.value = '';
+      $STAGE.showMission.value = '';
+    } else {
+      if (wordsAll.length === 0) {
+        $STAGE.showAll.value = '';
+      } else {
+        $STAGE.showAll.value = `[[분류:${theme}]][[분류:전체 단어 목록]]\n`
+                             + `{{상위 문서|${getThemeDoc(theme)}}}\n`
+                             + `{{목차}}\n`
+                             + wordsAll.join('\n');
+      }
+
+      if (wordsLong.length <= 3) {
+        $STAGE.showLong.value = '';
+      } else {
+        $STAGE.showLong.value = `[[분류:${theme}]][[분류:긴 단어 목록]]\n`
+                              + `{{상위 문서|${getThemeDoc(theme)}}}\n`
+                              + wordsLong.join('\n');
+      }
+
+      if (wordsMission.length === 0) {
+        $STAGE.showMission.value = '';
+      } else {
+        $STAGE.showMission.value = `[[분류:${theme}]][[분류:미션 단어 목록]]\n`
+                                 + `{{상위 문서|${getThemeDoc(theme)}}}\n`
+                                 + `{{목차}}\n`
+                                 + wordsMission.join('\n');
+      }
+    }
+  }
+
+
+
+  $STAGE.inputDoc.onkeyup = () => {
+    const doc = $STAGE.inputDoc.value
+
+    themeDoc = doc.match(/(?<=:).+(?=\]\]\[)/)?.[0] ?? '';
+    updateTheme();
+
+    wordsDoc = doc.match(/(?<=\| \[\[).+(?=\]\])/g) || [];
+    updateWords();
+
+    update();
+  };
+
+  $STAGE.inputAdd.onkeyup = () => {
+    wordsAdd = $STAGE.inputAdd.value.split("\n");
+    updateWords();
+
+    update();
+  };
+
+  $STAGE.inputDel.onkeyup = () => {
+    wordsDel = $STAGE.inputDel.value.split("\n");
+    updateWords();
+
+    update();
+  };
+
+  $STAGE.inputTheme.onkeyup = () => {
+    themeNew = $STAGE.inputTheme.value;
+    updateTheme();
+
+    update();
+  };
+
+  $STAGE.copyOrigin.onclick = () => {
+    $STAGE.showOrigin.select();
+    document.execCommand('copy');
+  };
+
+  $STAGE.copyAll.onclick = () => {
+    $STAGE.showAll.select();
+    document.execCommand('copy');
+  };
+
+  $STAGE.copyLong.onclick = () => {
+    $STAGE.showLong.select();
+    document.execCommand('copy');
+  };
+
+  $STAGE.copyMission.onclick = () => {
+    $STAGE.showMission.select();
+    document.execCommand('copy');
+  };
+});

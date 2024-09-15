@@ -1,47 +1,55 @@
 .Middle p, .Middle input, .Middle textarea, .Middle button {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 .Middle input, .Middle textarea, .Middle button {
-    border: 2px solid black;
-    padding: 2px;
+  border: 2px solid black;
+  padding: 2px;
 }
+
 .Middle textarea {
-    resize: none;
+  resize: none;
 }
+
 .Middle .left, .Middle .right {
-    margin: 20px;
-    display: grid;
-    grid-template-rows: 500px 50px;
-    gap: 4px;
+  margin: 20px;
+  display: grid;
+  grid-template-rows: 500px 50px;
+  gap: 4px;
 }
+
 .Middle .left {
-    float: left;
+  float: left;
 	grid-template-columns: repeat(3, 200px);
-    width: 608px;
+  width: 608px;
 }
+
 .Middle .right {
-    float: right;
+  float: right;
 	grid-template-columns: repeat(4, 200px);
-    width: 812px;
+  width: 812px;
 }
+
 .Middle .left input {
 	grid-column: span 3;
 }
+
 @media (max-width: 1499px) {
-    .Middle .left, .Middle .right {
-        float: none;
-        margin-left: auto;
-        margin-right: auto;
-        grid-template-rows: 250px 50px;
-    }
+  .Middle .left, .Middle .right {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-rows: 250px 50px;
+  }
 }
+
 @media (max-width: 851px) {
-    .Middle .left {
-        grid-template-columns: repeat(3,75px);
-        width: 233px;
-    }
-    .Middle .right {
-        grid-template-columns: repeat(4, 75px);
-        width: 312px;
-    }
+  .Middle .left {
+    grid-template-columns: repeat(3, 75px);
+    width: 233px;
+  }
+  .Middle .right {
+    grid-template-columns: repeat(4, 75px);
+    width: 312px;
+  }
 }

@@ -55,18 +55,42 @@ window.addEventListener('load', () => {
 
 
     // 미션 단어 목록
+    // GPT 딸깍으로 GPT가 없던 시절의 코드를 수정해보자.
     let missions = Array.from({ length: 14 }, () => []);
+    let missionMax = new Array(14).fill(0);
+    
+    // 1차: 각 글자별 최대 등장 횟수 계산
     for (const word of wordsOrigin) {
       const wordLen = word.length;
       const wordMissions = new Array(14).fill(0);
-
+    
       for (let i = 0; i < wordLen; i++) {
         const charIndex = '가나다라마바사아자차카타파하'.indexOf(word[i]);
         if (charIndex !== -1) wordMissions[charIndex]++;
       }
-
+    
       for (let i = 0; i < 14; i++) {
-        if (wordMissions[i] >= 2) missions[i].push([word.length, word, wordMissions[i]]);
+        if (wordMissions[i] > missionMax[i]) {
+          missionMax[i] = wordMissions[i];
+        }
+      }
+    }
+    
+    // 2차: 조건에 맞는 단어 추가
+    for (const word of wordsOrigin) {
+      const wordLen = word.length;
+      const wordMissions = new Array(14).fill(0);
+    
+      for (let i = 0; i < wordLen; i++) {
+        const charIndex = '가나다라마바사아자차카타파하'.indexOf(word[i]);
+        if (charIndex !== -1) wordMissions[charIndex]++;
+      }
+    
+      for (let i = 0; i < 14; i++) {
+        const threshold = missionMax[i] >= 2 ? 2 : 1;
+        if (wordMissions[i] >= threshold) {
+          missions[i].push([word.length, word, wordMissions[i]]);
+        }
       }
     }
 
